@@ -1,3 +1,6 @@
+from time import sleep
+
+
 def leiaInt(valor):
     while True:
         try:
@@ -23,6 +26,7 @@ def cabecalho(msg):
     print(traco())
     # Vai entrar o traço, logo depois a a mensagem desejada centralizada com a quant de traços.
 
+
 def menu1(lista):
     # O menu1 vai servir para adentrar no sistema de caixa eletrônico
     cabecalho('ACESSANDO SUA CONTA BANCÁRIA')
@@ -30,6 +34,20 @@ def menu1(lista):
     for item in lista:
         print(f'{c} -- {item}')
         c += 1
+        sleep(0.5)
     print(traco())
     opcao = leiaInt('Qual a sua opção? ')
+    return opcao
+
+
+def menu3(lista):
+    # O menu3 vai servir para acessar as outras opções
+    cabecalho('OUTRAS OPÇÕES')
+    c = 1
+    for item in lista:
+        print(f'{c} -- {item}')
+        c += 1
+        sleep(0.5)
+    print(traco())
+    opcao = leiaInt('Qual sua opção? ')
     return opcao
