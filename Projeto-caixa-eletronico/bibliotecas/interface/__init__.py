@@ -51,3 +51,8 @@ def menu3(lista):
     print(traco())
     opcao = leiaInt('Qual sua opção? ')
     return opcao
+
+
+def tela_espera(msg):
+    cabecalho(msg)
+    sleep(2)

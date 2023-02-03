@@ -12,8 +12,11 @@ def leiaID(validar_id):
     tentativa = 0
     while True:
         try:
-            id_valido = int(input(validar_id))
-            tentativa += 1
+            if len(validar_id) < 5 or len(validar_id) > 5:
+                print('O ID DIGITOS A MAIS OU A MENOS. TENTE NOVAMENTE')
+            else:
+                id_valido = int(input(validar_id))
+
         except (ValueError, TypeError):
             print('ALGO DEU ERRADO! -- Tente novamente!')    
         except KeyboardInterrupt:

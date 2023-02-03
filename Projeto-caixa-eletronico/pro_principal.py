@@ -15,12 +15,15 @@ while True:
     resposta1 = menu1(['ACESSAR CONTA PELO CPF', 'ACESSAR CONTA PELO ID', 'OUTRAS OPÇÕES', 'CANCELAR'])
 
     if resposta1 == 1:
+        tela_espera('ACESSANDO SISTEMA...')
         cabecalho('OPÇÃO PELO CPF')
 
     if resposta1 == 2:
+        tela_espera('ACESSANDO SISTEMA...')
         n = leiaID('Digite seu ID: ')
 
     if resposta1 == 3:
+        tela_espera('ACESSANDO SISTEMA...')
         while True:
             outra_resposta = menu3(['ABRIR CONTA', 'FAZER DEPOSITO', 'MENU ANTERIOR'])
 
@@ -35,5 +38,6 @@ while True:
                 break
 
     if resposta1 == 4:
+        tela_espera('ACESSANDO SISTEMA...')
         cabecalho('OPERAÇÃO CANCELADA PELO USUÁRIO!')
         break
