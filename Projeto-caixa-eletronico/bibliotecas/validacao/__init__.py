@@ -10,25 +10,6 @@ def leiaID(validar_id):
 
     # O ID só vai permitir até 5 números!
     tentativa = 0
-    while True:
-        try:
-            if len(validar_id) < 5 or len(validar_id) > 5:
-                print('O ID DIGITOS A MAIS OU A MENOS. TENTE NOVAMENTE')
-            else:
-                id_valido = int(input(validar_id))
-
-        except (ValueError, TypeError):
-            print('ALGO DEU ERRADO! -- Tente novamente!')    
-        except KeyboardInterrupt:
-            print(f'USUÁRIO DECIDIU NÃO DIGITAR!')
-            return 0
-        else:
-             while True:
-                if id_valido <= 99999:  # vai verificar se o número digitado tem menos de 5 digitos
-                    return id_valido
-                else:
-                    print('O ID NÃO TEM 5 DIGITOS!')
-            # return id_valido
 
 def digiteID(dig_id=0):
     from bibliotecas.interface import cabecalho

@@ -7,8 +7,11 @@ from bibliotecas.interface import *
 from bibliotecas.validacao import *
 from time import sleep
 
-# v0.2 --> 02/02/2023
+# v0.2 --> 03/02/2023
 cabecalho('SISTEMA DE CAIXA ELETRONICO V0.2')
+while True:
+    resposta = menu1(['ACESSAR CONTA', 'DEPOSITAR', ''])
+
 
 # print('>>> Você deseja acessar a conta bancária por qual método?')
 while True:
