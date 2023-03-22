@@ -20,7 +20,7 @@ def iniciar_jogo():
     pygame.display.set_caption('ALIEN INVADER!!')
 
     # Criando uma espaçonave na tela
-    nave = Nave(tela)
+    nave = Nave(config, tela)
 
     # Iniciando o laço principal do jogo
     while True:

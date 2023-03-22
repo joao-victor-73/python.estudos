@@ -27,11 +27,11 @@ def adm_events(nave):
                 nave.movendo_esquerda = False
 
 
-def att_tela(config, tela, nave):
+def att_tela(config, tela, nave):  # config == ai_settings / att_tela == update screen
     """
     Atualiza as imagens na tela e alterna para a nova tela.
     """
-    tela.fill(config.fundo_cor)
+    tela.fill(config.fundo_cor)  # fundo_cor == bg_color
     nave.blitme()
 
     pygame.display.flip()  # Deixa a tela mais recente visível
