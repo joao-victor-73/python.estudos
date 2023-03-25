@@ -1,0 +1,70 @@
+Exatamente o que eu fiz, dividi a altura da tela por 20 (o tamanho da maçã e da cobra), 
+no meu caso criei uma janela de 600x600, então o resultado foi 30 e criei uma variável 
+chamada "coordenadas_comida" e declarei um randint inicial em (1, 29) e depois dentro do 
+loop while True declarei essa variável novamente com o mesmo randint também em (1,29), 
+aí na posição da comida em x e y usei a variável coordenadas_comida*20 assim sempre gera 
+um valor entre 20 e 580 e que seja múltiplo de 20.
+
+ exatamente, porem temos que lembrar que a posição da maçã é randomizada a cada vez que 
+ a cobra pega a maçã. então teria que ser números randômicos múltiplos da largura e altura
+  da tela.
+
+
+problema da maçã:
+Eu resolvi isso em um jogo meu criando uma função pra maçã spawnar. Ela retorna o valor 
+da maçã SE não estiver sendo ocupado pra nenhuma parte do corpo da cobra.
+
+Assim, ele analisa cada parte do corpo e compara com a posição da maçã, se for igual,
+ele aleatórias outra posição.
+
+
+CORES RGB: https://celke.com.br/artigo/tabela-de-cores-html-nome-hexadecimal-rgb
+
+
+
+ COLISÕES NAS BORDAS
+ 
+@andersonbarbosa8591
+há 8 dias
+Eu fiz assim, só pra minha diversão! 
+
+
+#parametro da tela
+
+largura = 640
+altura = 480
+tela = pygame.display.set_mode((largura, altura))
+
+#parametro dos obstaculos
+
+line_01 = pygame.draw.line(tela, (220,0,0), (0, 0), (640, 0), 5)
+    
+    if cobra.colliderect(line_01):
+        x = randint(40, 600)
+        y = randint(50, 430)
+        pontos = pontos - 1
+        som_colisao.play()
+        
+    line_02 = pygame.draw.line(tela, (220,0,0), (0, 0), (0, 480), 5)
+    
+   if cobra.colliderect(line_02):
+        x = randint(40, 600)
+        y = randint(50, 430)
+        pontos = pontos - 1
+        som_colisao.play()
+        
+    line_03 = pygame.draw.line(tela, (220,0,0), (640, 0), (640, 480), 5)
+    
+   if cobra.colliderect(line_03):
+        x = randint(40, 600)
+        y = randint(50, 430)
+        pontos = pontos - 1
+        som_colisao.play()
+        
+    line_04 = pygame.draw.line(tela, (220,0,0), (0, 480), (640, 480), 5)
+    
+    if cobra.colliderect(line_04):
+        x = randint(40, 600)
+        y = randint(50, 430)
+        pontos = pontos - 1
+        som_colisao.play()
