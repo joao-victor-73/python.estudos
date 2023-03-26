@@ -1,8 +1,7 @@
 import pygame
 import sys
 from random import randint
-from configs import Configurações, Musicas, Cores
-import funcoes_jogo as fj
+from configs import Configurações, Musicas
 
 # tentar fazer modularização com esse código depois !!!!
 """ FALTA ORGANIZAR MELHOR ESSE CÓDIGO!!!!!!"""
@@ -11,15 +10,14 @@ import funcoes_jogo as fj
 
 config = Configurações()
 musicas = Musicas()
-cor = Cores()
 
 
 def reiniciar():
     global pontos, velocidade, cont, comprimento_inicial, x_cobra, y_cobra, lista_cobra, lista_cabeca, x2, y2, morreu
 
-    config.pontos = config.cont = 0
-    config.velocidade = 10
-    config.comprimento_inicial = 5
+    pontos = cont = 0
+    velocidade = 10
+    comprimento_inicial = 5
 
     x_cobra = ((config.tela_largura/2) - (80 / 2))
     y_cobra = ((config.tela_altura/2) - (60 / 2))
@@ -38,19 +36,27 @@ pygame.init()  # -> Inicializar o pygame
 # config.musica_background
 
 
+# Isso aqui depois pode ser colocado em uma função ou em um dicionário
+vermelho = (255, 0, 0)
+verde = (0, 255, 0)
+azul = (0, 0, 255)
+
 # Criando váriaveis para X e Y
 x_cobra = ((config.tela_largura/2) - (80 / 2))
 y_cobra = ((config.tela_altura/2) - (60 / 2))
 # em x foi feito um calcúlo para deixar o objeto no meio da tela
 # largura_tela / 2 - 80 / 2 -> 80 é a largura do objeto que vai ficar no meio!
 
-x_controle = config.velocidade
+velocidade = 10  # variável para velocidade do objeto
+x_controle = velocidade
 y_controle = 0
 
 # X e Y do retângulo 2
 x2 = randint(40, 600)
 y2 = randint(50, 430)
 
+pontos = 0  # variável para armazenar a pontuação
+cont = 0  # Variável para tocar música de 10 pontos
 
 fonte = pygame.font.SysFont('Arial', 25, True, True)  # variável para fonte
 # parâmetros -> 1ª: Tipo da fonte / 2ª Tamanho / 3ª Se vai estar em negrito / 4ª Em italico
@@ -63,6 +69,7 @@ tela = pygame.display.set_mode((config.tela_largura, config.tela_altura))
 pygame.display.set_caption('JOGINHO DA PLAYLIST!')
 
 lista_cobra = []  # lista que vai servir para guardar os aumentos da cobra!
+comprimento_inicial = 5
 
 game_over = False
 
@@ -72,14 +79,15 @@ def aumenta_cobra(lista_cobra):
         # XeY vai ser igual a uma lista [].
         # XeY[0] = x
         # XeY[1] = y
-        pygame.draw.rect(tela, cor.verde, (XeY[0], XeY[1], 20, 20))
+        pygame.draw.rect(tela, verde, (XeY[0], XeY[1], 20, 20))
+
 
     # Laço princípal do jogo
 while True:
     pygame.time.Clock().tick(10)  # Diminui o FPS do jogo, uma coisa útil!
     tela.fill(config.tela_cor)
 
-    mensagem = f'Pontos: {config.pontos}'
+    mensagem = f'Pontos: {pontos}'
     texto_formatado = fonte.render(mensagem, False, (255, 255, 255))
 
     # o lopping for vai servir para checar os eventos!
@@ -91,39 +99,54 @@ while True:
         # Vai fazer com que a cobra fique em constante movimento.
         if evento.type == pygame.KEYDOWN:
             if evento.key == pygame.K_LEFT:
-                if x_controle == config.velocidade:
+                if x_controle == velocidade:
                     pass
                 else:
-                    x_controle = -config.velocidade
+                    x_controle = -velocidade
                     y_controle = 0
 
             if evento.key == pygame.K_RIGHT:
-                if x_controle == -config.velocidade:
+                if x_controle == -velocidade:
                     pass
                 else:
-                    x_controle = config.velocidade
+                    x_controle = velocidade
                     y_controle = 0
 
             if evento.key == pygame.K_UP:
-                if y_controle == config.velocidade:
+                if y_controle == velocidade:
                     pass
                 else:
-                    y_controle = -config.velocidade
+                    y_controle = -velocidade
                     x_controle = 0
 
             if evento.key == pygame.K_DOWN:
-                if y_controle == -config.velocidade:
+                if y_controle == -velocidade:
                     pass
                 else:
-                    y_controle = config.velocidade
+                    y_controle = velocidade
                     x_controle = 0
 
     x_cobra += x_controle
     y_cobra += y_controle
 
+    '''
+    # Comandos para fazer o objeto se mover por conta do usuário!
+    if pygame.key.get_pressed()[pygame.K_LEFT]:
+        x_cobra -= velocidade
+
+    if pygame.key.get_pressed()[pygame.K_RIGHT]:
+        x_cobra += velocidade
+
+    if pygame.key.get_pressed()[pygame.K_UP]:
+        y_cobra -= velocidade
+
+    if pygame.key.get_pressed()[pygame.K_DOWN]:
+        y_cobra += velocidade
+    '''
+
     # Retângulos:
-    cobra = pygame.draw.rect(tela, cor.verde, (x_cobra, y_cobra, 20, 20))
-    ret2 = pygame.draw.rect(tela, cor.azul, (x2, y2, 10, 10))
+    cobra = pygame.draw.rect(tela, verde, (x_cobra, y_cobra, 20, 20))
+    ret2 = pygame.draw.rect(tela, azul, (x2, y2, 10, 10))
 
     # trabalhando as colisões
     if cobra.colliderect(ret2):
@@ -132,22 +155,22 @@ while True:
         # cada vez que o retangulo 1 colider com o outro, os valores X e Y serão
         # randimicamentes alterados
 
-        config.pontos += 1  # toda vez que houver colisão, os pontos vão subir
+        pontos += 1  # toda vez que houver colisão, os pontos vão subir
 
-        config.comprimento_inicial += 1
+        comprimento_inicial += 1
 
         # Coisa extra: toda vez que coletar 10 pontos, ele toca uma outra música
-        config.cont += 1
-        if config.cont == 10:
+        cont += 1
+        if cont == 10:
             musicas.musica_10pontos.play()
-            config.cont = 0
+            cont = 0
         else:
             # O barulho de colisão apenas rodará quando ouver colisão
             musicas.musica_coleta.play()
 
     # Vai deixar o jogo mais rapido quando atingir determinado x pontos
-    if config.pontos >= 20:
-        config.velocidade = 20
+    if pontos >= 20:
+        velocidade = 20
 
     # Funcionalidade para fazer a cobra crescer a medida que come os pontos!
     lista_cabeca = []
@@ -193,7 +216,7 @@ while True:
     if y_cobra > config.tela_altura:
         y_cobra = 0
 
-    if len(lista_cobra) > config.comprimento_inicial:
+    if len(lista_cobra) > comprimento_inicial:
         del lista_cobra[0]
 
     aumenta_cobra(lista_cobra)

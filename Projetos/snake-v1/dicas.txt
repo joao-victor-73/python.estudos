@@ -68,3 +68,22 @@ line_01 = pygame.draw.line(tela, (220,0,0), (0, 0), (640, 0), 5)
         y = randint(50, 430)
         pontos = pontos - 1
         som_colisao.play()
+
+
+
+
+        
+    '''
+    # Comandos para fazer o objeto se mover por conta do usuário!
+    if pygame.key.get_pressed()[pygame.K_LEFT]:
+        x_cobra -= velocidade
+
+    if pygame.key.get_pressed()[pygame.K_RIGHT]:
+        x_cobra += velocidade
+
+    if pygame.key.get_pressed()[pygame.K_UP]:
+        y_cobra -= velocidade
+
+    if pygame.key.get_pressed()[pygame.K_DOWN]:
+        y_cobra += velocidade
+    '''
