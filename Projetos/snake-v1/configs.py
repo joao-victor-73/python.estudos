@@ -55,6 +55,24 @@ class Musicas():
 class Cores():
 
     def __init__(self):
+        self.cinza = (105, 105, 105)
+        self.marrom = (150, 75, 0)
+        self.indigo = (75, 0, 130)
+        self.roxo = (128, 0, 128)
+        self.salmao = (250, 128, 114)
+        self.amarelo = (255, 255, 0)
+        self.laranja = (255, 165, 0)
+
         self.vermelho = (255, 0, 0)
+        self.vermelho_escuro = (139, 0, 0)
+
         self.verde = (0, 255, 0)
+        self.verde_escuro = (0, 100, 0)
+        self.verde_claro = (144, 238, 144)
+
         self.azul = (0, 0, 255)
+        self.azul_claro = (173, 216, 230)
+        self.azul_escuro = (0, 0, 139)
+        self.ciano = (0, 255, 255)
+
+        # Para mais cores: https://celke.com.br/artigo/tabela-de-cores-html-nome-hexadecimal-rgb

@@ -2,6 +2,7 @@ import pygame
 import sys
 from random import randint
 from configs import Configurações, Musicas, Cores
+import mensagem as mensagem
 import funcoes_jogo as fj
 
 # tentar fazer modularização com esse código depois !!!!
@@ -52,10 +53,6 @@ x2 = randint(40, 600)
 y2 = randint(50, 430)
 
 
-fonte = pygame.font.SysFont('Arial', 25, True, True)  # variável para fonte
-# parâmetros -> 1ª: Tipo da fonte / 2ª Tamanho / 3ª Se vai estar em negrito / 4ª Em italico
-
-
 tela = pygame.display.set_mode((config.tela_largura, config.tela_altura))
 # 640 largura / 480 altura (pode-se criar variáveis separadas para a lar e alt)
 
@@ -74,13 +71,11 @@ def aumenta_cobra(lista_cobra):
         # XeY[1] = y
         pygame.draw.rect(tela, cor.verde, (XeY[0], XeY[1], 20, 20))
 
+
     # Laço princípal do jogo
 while True:
     pygame.time.Clock().tick(10)  # Diminui o FPS do jogo, uma coisa útil!
     tela.fill(config.tela_cor)
-
-    mensagem = f'Pontos: {config.pontos}'
-    texto_formatado = fonte.render(mensagem, False, (255, 255, 255))
 
     # o lopping for vai servir para checar os eventos!
     for evento in pygame.event.get():
@@ -158,13 +153,10 @@ while True:
 
     # Essa condição vai dizer que a cabeça da cobra escostou nela mesma!
     if lista_cobra.count(lista_cabeca) > 1:
-        fonte_over = pygame.font.SysFont('arial', 15, True, True)
-        mensagem_over = 'Game Over! Precione "R" para jogar novamente!'
-        texto_over_formatado = fonte_over.render(
-            mensagem_over, True, (0, 0, 0))
-        ret_texto = texto_over_formatado.get_rect()
+        men_over, texto_retangulo = mensagem.mensagem_game_over()
 
         morreu = True
+
         while morreu:
             tela.fill((176, 196, 222))
             for evento in pygame.event.get():
@@ -176,9 +168,10 @@ while True:
                     if evento.key == pygame.K_r:
                         reiniciar()
 
-            ret_texto.center = (config.tela_largura // 2,
-                                config.tela_altura // 2)
-            tela.blit(texto_over_formatado, ret_texto)
+            texto_retangulo.center = (config.tela_largura // 2,
+                                      config.tela_altura // 2)
+
+            tela.blit(men_over, texto_retangulo)
             pygame.display.update()
 
     # Modificar depois para o jogo encerrar quando tocar na lateral
@@ -206,8 +199,8 @@ while True:
     y += 0.1  # Vai fazer o objeto andar na linha y
     """
 
-    # Vai fazer mostrar na tela o texto!
-    tela.blit(texto_formatado, (470, 10))
+    # Vai fazer mostrar na tela o texto de pontos!
+    tela.blit(mensagem.mensagem_pontos(), (470, 10))
 
     # Esse comando abaixo vai servir p/ que a cada interação com o looping principal
     # do jogo, ele atualiza a tela do jogo.
