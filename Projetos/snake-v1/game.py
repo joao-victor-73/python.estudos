@@ -3,7 +3,6 @@ import sys
 from random import randint
 from configs import Configurações, Musicas, Cores
 import mensagem as mensagem
-import funcoes_jogo as fj
 
 # tentar fazer modularização com esse código depois !!!!
 """ FALTA ORGANIZAR MELHOR ESSE CÓDIGO!!!!!!"""
@@ -48,7 +47,7 @@ y_cobra = ((config.tela_altura/2) - (60 / 2))
 x_controle = config.velocidade
 y_controle = 0
 
-# X e Y do retângulo 2
+# X e Y da maçã
 x2 = randint(40, 600)
 y2 = randint(50, 430)
 
@@ -60,8 +59,6 @@ tela = pygame.display.set_mode((config.tela_largura, config.tela_altura))
 pygame.display.set_caption('JOGINHO DA PLAYLIST!')
 
 lista_cobra = []  # lista que vai servir para guardar os aumentos da cobra!
-
-game_over = False
 
 
 def aumenta_cobra(lista_cobra):
@@ -158,7 +155,7 @@ while True:
         morreu = True
 
         while morreu:
-            tela.fill((176, 196, 222))
+            tela.fill(cor.cinza_claro)
             for evento in pygame.event.get():
                 if evento.type == pygame.QUIT:
                     pygame.quit()
@@ -174,17 +171,28 @@ while True:
             tela.blit(men_over, texto_retangulo)
             pygame.display.update()
 
-    # Modificar depois para o jogo encerrar quando tocar na lateral
-    # No momento, quando a cobra passar da tela, ela irá pro outro lado;
-    if x_cobra > config.tela_largura:
-        x_cobra = 0
-    if x_cobra < 0:
-        x_cobra = config.tela_largura
+    # Se enconstar nas laterais, a cobra morre!
+    if (x_cobra > config.tela_largura or x_cobra < 0) or (y_cobra < 0 or y_cobra > config.tela_altura):
+        men_over, texto_retangulo = mensagem.mensagem_game_over()
 
-    if y_cobra < 0:
-        y_cobra = config.tela_altura
-    if y_cobra > config.tela_altura:
-        y_cobra = 0
+        morreu = True
+
+        while morreu:
+            tela.fill(cor.cinza_claro)
+            for evento in pygame.event.get():
+                if evento.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+
+                if evento.type == pygame.KEYDOWN:
+                    if evento.key == pygame.K_r:
+                        reiniciar()
+
+            texto_retangulo.center = (
+                config.tela_largura // 2, config.tela_altura // 2)
+
+            tela.blit(men_over, texto_retangulo)
+            pygame.display.update()
 
     if len(lista_cobra) > config.comprimento_inicial:
         del lista_cobra[0]
@@ -200,7 +208,7 @@ while True:
     """
 
     # Vai fazer mostrar na tela o texto de pontos!
-    tela.blit(mensagem.mensagem_pontos(), (470, 10))
+    tela.blit(mensagem.mensagem_pontos(config.pontos), (470, 10))
 
     # Esse comando abaixo vai servir p/ que a cada interação com o looping principal
     # do jogo, ele atualiza a tela do jogo.

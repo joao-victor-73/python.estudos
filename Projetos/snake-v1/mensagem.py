@@ -13,9 +13,9 @@ def fontes(fonte='arial', tamanho=15, negrito=False, italico=False):
     return pygame.font.SysFont(fonte, tamanho, negrito, italico)
 
 
-def mensagem_pontos():
+def mensagem_pontos(pontos):
     m = fontes('arial', 25)
-    mensagem = f'Pontos: {config.pontos}'
+    mensagem = f'Pontos: {pontos}'
     texto_formatado = m.render(mensagem, False, (255, 255, 255))
 
     return texto_formatado

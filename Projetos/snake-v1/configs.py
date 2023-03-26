@@ -18,18 +18,6 @@ class Configurações():
         self.velocidade = 10  # variável para velocidade do objeto
 
 
-    # Configurações de Fontes
-'''
-    def fontes(self, fonte='arial', tamanho='15', negrito=False, italico=False):
-        # Fonte = o tipo de fonte que vai querer;
-        # tamanho = O tamanho da Fonte (valores inteiros);
-        # Negrito = Colocar True para colocar em negrito
-        # Italico = Colocar True para colocar em Italico
-
-        pygame.font.SysFont(fonte, tamanho, negrito, italico)
-'''
-
-
 # Configurações de Música
 class Musicas():
 
@@ -56,6 +44,7 @@ class Cores():
 
     def __init__(self):
         self.cinza = (105, 105, 105)
+        self.cinza_claro = (176, 196, 222)
         self.marrom = (150, 75, 0)
         self.indigo = (75, 0, 130)
         self.roxo = (128, 0, 128)
