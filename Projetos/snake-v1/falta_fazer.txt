@@ -1,7 +1,7 @@
 1ª Falta modularizar todo o código. Está uma bagunça e para uma manutenção
 ou um futuro aprimoramento no jogo vai ser bem ruim de fazer do jeito que está;
 
-2ª Colocar para morrer ao bater na borda da tela e também dar uma aumentada na tela;
+~2ª Colocar para morrer ao bater na borda da tela e também dar uma aumentada na tela;~
 
 3ª Criar uma tela de MENU contendo os itens: JOGAR / SOBRE / PONTUAÇÕES;
 
