@@ -2,6 +2,7 @@ import sys
 import pygame
 from settings import Configurações
 from nave import Nave
+from pygame.sprite import Group
 import funcoes as f
 
 configs = Configurações()  # ai_settings = configs
@@ -18,12 +19,16 @@ def rodando_jogo():
     # Trazendo as informações da nave para o programa principal!
     nave = Nave(tela, configs)
 
+    # Cria um grupo no qual serão armazenados os projéteis!
+    projeteis = Group()
+
     while True:  # Laço principal de todo o jogo!
-        f.checar_eventos(nave)
+        f.checar_eventos(configs, tela, nave, projeteis)
 
         nave.atualizar()
+        f.atualizar_projeteis(projeteis)
 
-        f.atualizacao_tela(configs, tela, nave)
+        f.atualizacao_tela(configs, tela, nave, projeteis)
 
 
 rodando_jogo()
