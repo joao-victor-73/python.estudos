@@ -1,6 +1,7 @@
 import sys
 import pygame
 from projetil import Projetil
+from alien import Alien
 
 
 def press_tecla(evento, configs, tela, nave, projeteis):
@@ -12,7 +13,10 @@ def press_tecla(evento, configs, tela, nave, projeteis):
     elif evento.key == pygame.K_LEFT:
         nave.mover_esquerda = True
 
-    elif evento.key == pygame.K_w:  # Atirar!
+    elif evento.key == pygame.K_q:  # Precione 'Q' para sair
+        sys.exit()
+
+    elif evento.key == pygame.K_c:  # Atirar!
         def atirar_projetil(configs, tela, nave, projeteis):
             # Dispara um projétil se o limite ainda não foi alcançado.
 
@@ -46,7 +50,7 @@ def checar_eventos(configs, tela, nave, projeteis):
             soltar_teca(evento, nave)
 
 
-def atualizacao_tela(configs, tela, nave, projeteis):
+def atualizacao_tela(configs, tela, nave, aliens, projeteis):
     # Os nomes dos parâmetros são os mesmos para falicitar!
     tela.fill(configs.fundo_tela)
 
@@ -55,6 +59,7 @@ def atualizacao_tela(configs, tela, nave, projeteis):
         projetil.desenha_projetil()
 
     nave.blitme()  # Faz a nave aparecer na tela
+    aliens.draw(tela)  # Faz o alien aparecer na tela
 
     pygame.display.flip()  # Deixa a tela recente vísivel.
 
@@ -70,3 +75,49 @@ def atualizar_projeteis(projeteis):
         if projetil.ret_p.bottom <= 0:
             projeteis.remove(projetil)
             print(len(projeteis))
+
+
+def aliens_em_y(configs, nave_altura, alien_altura):
+    ''' Determina o número de linhas com alienígenas que cabem na tela.'''
+
+    space_avaliado_y = (configs.tela_altura - (3 * alien_altura) - nave_altura)
+    num_linhas_y = int(space_avaliado_y / (2 * alien_altura))
+
+    return num_linhas_y
+
+
+def aliens_em_x(configs, alien_largura):
+    # Determina o número de alienígenas que cabem em uma linha.
+    space_avaliado_x = configs.tela_largura - 2 * alien_largura
+    num_aliens_x = int(space_avaliado_x / (2 * alien_largura))
+
+    return num_aliens_x
+
+
+def criar_alien(configs, tela, aliens, alien_num, num_linhas_y):
+    # Cria alienígena e o posiciona na linha
+    alien = Alien(configs, tela)
+
+    alien_largura = alien.rect.width
+
+    alien.x = alien_largura + 2 * alien_largura * alien_num
+    alien.rect.x = alien.x
+
+    alien.rect.y = alien.rect.height + 2 * alien.rect.height * num_linhas_y
+
+    aliens.add(alien)
+
+
+def criar_frota(configs, tela, nave, aliens):  # Cria uma frota de alienigenas;
+    '''Cria um alienígena e calcula o número de alienígenas em uma linha.'''
+    alien = Alien(configs, tela)
+
+    aliens_x = aliens_em_x(configs, alien.rect.width)
+    aliens_y = aliens_em_y(
+        configs, nave.retangulo.height, alien.rect.height)
+
+    # Cria a primeira linha de alienígenas
+    for alien_linha in range(aliens_y):
+        for alien_reto in range(aliens_x):
+            # Cria um alienígena e o posiciona na linha
+            criar_alien(configs, tela, aliens, alien_reto, alien_linha)

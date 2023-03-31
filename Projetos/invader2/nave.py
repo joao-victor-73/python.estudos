@@ -14,7 +14,7 @@ class Nave():
         self.configs = configs
 
         self.imagem = pygame.image.load(
-            'Projetos\\invader2\\imagens\\nave_galata.bmp')
+            'Projetos\\invader2\\imagens\\nave2.bmp')
         self.imagem = pygame.transform.scale(self.imagem, [80, 80])
         self.retangulo = self.imagem.get_rect()
         # vai transformar a imagem acima em um retângulo!
