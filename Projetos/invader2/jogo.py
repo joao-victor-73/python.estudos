@@ -30,9 +30,19 @@ def rodando_jogo():
         f.checar_eventos(configs, tela, nave, projeteis)
 
         nave.atualizar()
+
         f.atualizar_projeteis(projeteis)
+
+        f.atualizar_aliens(configs, aliens)
 
         f.atualizacao_tela(configs, tela, nave, aliens, projeteis)
 
 
 rodando_jogo()
+
+
+'''             PROBLEMA NO JOGO -> 01/04/2023
+< Os aliens simplesmente não batem nas bordas da tela.
+Estou revisando todo o código para ver se deixei algo passar. 
+E também procurando alternativas para ver como resolver.>
+'''

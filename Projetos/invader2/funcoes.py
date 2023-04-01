@@ -121,3 +121,27 @@ def criar_frota(configs, tela, nave, aliens):  # Cria uma frota de alienigenas;
         for alien_reto in range(aliens_x):
             # Cria um alienígena e o posiciona na linha
             criar_alien(configs, tela, aliens, alien_reto, alien_linha)
+
+
+def mudar_direcao_frota(configs, aliens):
+    ''' Faz toda a frota descer e muda a sua direção. '''
+    for alien in aliens.sprites():
+        alien.rect.y += configs.frota_velocidade
+        configs.frota_direcao *= -1
+
+
+def check_frota_borda(configs, aliens):
+    ''' Responde apropriadamente se algum alienígena alcançou uma borda. '''
+    for alien in aliens.sprites():
+        if alien.checando_borda():
+            mudar_direcao_frota(configs, aliens)
+            break
+
+
+def atualizar_aliens(configs, aliens):
+    '''
+    Verifica se a frota está em uma das bordas e então
+    atualiza as posições de todos os alienígenas da frota.
+    '''
+    check_frota_borda(configs, aliens)
+    aliens.update()

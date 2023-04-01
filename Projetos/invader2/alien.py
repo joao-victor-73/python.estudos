@@ -24,6 +24,20 @@ class Alien(Sprite):
         # Armazena a posição exata do alienígena
         self.x = float(self.rect.x)
 
+    def checando_borda(self):
+        ''' Devolve True se o alienígena estiver na borda da tela. '''
+        tela_rect = self.tela.get_rect()
+
+        if self.rect.right >= tela_rect.right:
+            return True
+        elif self.rect.left <= 0:
+            return True
+
+    def update(self):
+        ''' Move o alienígena para a direita ou para a esquerda. '''
+        self.x += (self.configs.alien_velocidade * self.configs.frota_direcao)
+        self.rect.x = self.x
+
     def blitme(self):
         # Desenha o alienígena em sua posição atual.
         self.tela.blit(self.image, self.rect)
