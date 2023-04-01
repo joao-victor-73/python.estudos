@@ -9,7 +9,7 @@ class Configurações():
         self.nave_velocidade = 1.5
 
         # Configurações dos projéteis
-        self.projetil_velocidade = 1
+        self.projetil_velocidade = 2
         self.projetil_largura = 3
         self.projetil_altura = 15
         self.projetil_cor = (60, 60, 60)

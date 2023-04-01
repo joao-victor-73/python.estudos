@@ -88,8 +88,8 @@ def aliens_em_y(configs, nave_altura, alien_altura):
 
 def aliens_em_x(configs, alien_largura):
     # Determina o número de alienígenas que cabem em uma linha.
-    space_avaliado_x = configs.tela_largura - 2 * alien_largura
-    num_aliens_x = int(space_avaliado_x / (2 * alien_largura))
+    space_avaliado_x = configs.tela_largura - 1 * alien_largura
+    num_aliens_x = int(space_avaliado_x / (1 * alien_largura))
 
     return num_aliens_x
 

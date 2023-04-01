@@ -36,11 +36,3 @@ def rodando_jogo():
 
 
 rodando_jogo()
-
-
-''' 
-PROBLEMAS DO JOGO OU QUE ESTÁ DANDO ALGUM BUGG:
-
-31/03/23 -> As frotas não estão sendo feitas no canto direito da tela. Resolver isso!
-
-'''
