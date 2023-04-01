@@ -88,8 +88,8 @@ def aliens_em_y(configs, nave_altura, alien_altura):
 
 def aliens_em_x(configs, alien_largura):
     # Determina o número de alienígenas que cabem em uma linha.
-    space_avaliado_x = configs.tela_largura - 1 * alien_largura
-    num_aliens_x = int(space_avaliado_x / (1 * alien_largura))
+    space_avaliado_x = configs.tela_largura - 2 * alien_largura
+    num_aliens_x = int(space_avaliado_x / (2 * alien_largura))
 
     return num_aliens_x
 
@@ -123,19 +123,19 @@ def criar_frota(configs, tela, nave, aliens):  # Cria uma frota de alienigenas;
             criar_alien(configs, tela, aliens, alien_reto, alien_linha)
 
 
-def mudar_direcao_frota(configs, aliens):
-    ''' Faz toda a frota descer e muda a sua direção. '''
-    for alien in aliens.sprites():
-        alien.rect.y += configs.frota_velocidade
-        configs.frota_direcao *= -1
-
-
 def check_frota_borda(configs, aliens):
     ''' Responde apropriadamente se algum alienígena alcançou uma borda. '''
     for alien in aliens.sprites():
         if alien.checando_borda():
             mudar_direcao_frota(configs, aliens)
             break
+
+
+def mudar_direcao_frota(configs, aliens):
+    ''' Faz toda a frota descer e muda a sua direção. '''
+    for alien in aliens.sprites():
+        alien.rect.y += configs.frota_velocidade
+        configs.frota_direcao *= -1
 
 
 def atualizar_aliens(configs, aliens):
