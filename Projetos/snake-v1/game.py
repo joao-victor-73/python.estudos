@@ -2,7 +2,9 @@ import pygame
 import sys
 from random import randint
 from configs import Configurações, Musicas, Cores
+from cobra import Cobra
 import mensagem as mensagem
+import funcoes as f
 
 # tentar fazer modularização com esse código depois !!!!
 """ FALTA ORGANIZAR MELHOR ESSE CÓDIGO!!!!!!"""
@@ -14,35 +16,12 @@ musicas = Musicas()
 cor = Cores()
 
 
-def reiniciar():
-    global pontos, velocidade, cont, comprimento_inicial, x_cobra, y_cobra, lista_cobra, lista_cabeca, x2, y2, morreu
-
-    config.pontos = config.cont = 0
-    config.velocidade = 10
-    config.comprimento_inicial = 5
-
-    x_cobra = ((config.tela_largura/2) - (80 / 2))
-    y_cobra = ((config.tela_altura/2) - (60 / 2))
-
-    lista_cabeca = []
-    lista_cobra = []
-
-    x2 = randint(40, 600)
-    y2 = randint(50, 430)
-
-    morreu = False
-
-
 pygame.init()  # -> Inicializar o pygame
-
-# config.musica_background
 
 
 # Criando váriaveis para X e Y
 x_cobra = ((config.tela_largura/2) - (80 / 2))
 y_cobra = ((config.tela_altura/2) - (60 / 2))
-# em x foi feito um calcúlo para deixar o objeto no meio da tela
-# largura_tela / 2 - 80 / 2 -> 80 é a largura do objeto que vai ficar no meio!
 
 x_controle = config.velocidade
 y_controle = 0
@@ -55,7 +34,7 @@ y2 = randint(50, 430)
 tela = pygame.display.set_mode((config.tela_largura, config.tela_altura))
 # 640 largura / 480 altura (pode-se criar variáveis separadas para a lar e alt)
 
-# Alterar nome da janela que for criada:
+# Altera nome da janela:
 pygame.display.set_caption('JOGINHO DA PLAYLIST!')
 
 lista_cobra = []  # lista que vai servir para guardar os aumentos da cobra!
@@ -69,7 +48,9 @@ def aumenta_cobra(lista_cobra):
         pygame.draw.rect(tela, cor.verde, (XeY[0], XeY[1], 20, 20))
 
 
-    # Laço princípal do jogo
+cobra = Cobra(config, tela, cor)
+
+# Laço princípal do jogo
 while True:
     pygame.time.Clock().tick(10)  # Diminui o FPS do jogo, uma coisa útil!
     tela.fill(config.tela_cor)
@@ -114,11 +95,11 @@ while True:
     y_cobra += y_controle
 
     # Retângulos:
-    cobra = pygame.draw.rect(tela, cor.verde, (x_cobra, y_cobra, 20, 20))
+    # cobra = pygame.draw.rect(tela, cor.verde, (cobra.x, cobra.y, 20, 20))
     ret2 = pygame.draw.rect(tela, cor.azul, (x2, y2, 10, 10))
 
     # trabalhando as colisões
-    if cobra.colliderect(ret2):
+    if cobra.cobra.colliderect(ret2):
         x2 = randint(40, 600)
         y2 = randint(50, 430)
         # cada vez que o retangulo 1 colider com o outro, os valores X e Y serão
@@ -149,50 +130,10 @@ while True:
     lista_cobra.append(lista_cabeca)
 
     # Essa condição vai dizer que a cabeça da cobra escostou nela mesma!
-    if lista_cobra.count(lista_cabeca) > 1:
-        men_over, texto_retangulo = mensagem.mensagem_game_over()
-
-        morreu = True
-
-        while morreu:
-            tela.fill(cor.cinza_claro)
-            for evento in pygame.event.get():
-                if evento.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-
-                if evento.type == pygame.KEYDOWN:
-                    if evento.key == pygame.K_r:
-                        reiniciar()
-
-            texto_retangulo.center = (config.tela_largura // 2,
-                                      config.tela_altura // 2)
-
-            tela.blit(men_over, texto_retangulo)
-            pygame.display.update()
+    f.encostou_na_cabeca(lista_cobra, lista_cabeca, config, cor, tela)
 
     # Se enconstar nas laterais, a cobra morre!
-    if (x_cobra > config.tela_largura or x_cobra < 0) or (y_cobra < 0 or y_cobra > config.tela_altura):
-        men_over, texto_retangulo = mensagem.mensagem_game_over()
-
-        morreu = True
-
-        while morreu:
-            tela.fill(cor.cinza_claro)
-            for evento in pygame.event.get():
-                if evento.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-
-                if evento.type == pygame.KEYDOWN:
-                    if evento.key == pygame.K_r:
-                        reiniciar()
-
-            texto_retangulo.center = (
-                config.tela_largura // 2, config.tela_altura // 2)
-
-            tela.blit(men_over, texto_retangulo)
-            pygame.display.update()
+    f.encostou_borda(x_cobra, y_cobra, config, cor, tela)
 
     if len(lista_cobra) > config.comprimento_inicial:
         del lista_cobra[0]

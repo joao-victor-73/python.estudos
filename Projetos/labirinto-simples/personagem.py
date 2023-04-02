@@ -6,5 +6,15 @@ class Char1():
 
         self.tela = tela
 
-        # Cria o personagem que vai andar no labirinto! (por enquanto é um quadrado)
-        self.char1 = pygame.draw.rect(tela, (250, 0, 0), (400, 300, 20, 20))
+        # Cria o personagem que vai andar no labirinto!
+        self.imagem = pygame.image.load(
+            'Projetos\\labirinto-simples\\imagens\\char1.bmp')
+        # transforma a imagem em um retângulo.
+        self.rect = self.imagem.get_rect()
+
+        # Deixar o personagem em algum canto da tela:
+        
+
+    def blitme(self):
+        # Desenha o personagem na tela
+        self.tela.blit(self.imagem, self.rect)
