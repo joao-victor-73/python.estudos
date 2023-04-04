@@ -80,16 +80,16 @@ def atualizar_projeteis(projeteis):
 def aliens_em_y(configs, nave_altura, alien_altura):
     ''' Determina o número de linhas com alienígenas que cabem na tela.'''
 
-    space_avaliado_y = (configs.tela_altura - (3 * alien_altura) - nave_altura)
-    num_linhas_y = int(space_avaliado_y / (2 * alien_altura))
+    space_avaliado_y = (configs.tela_altura - (2.50 * alien_altura) - nave_altura)
+    num_linhas_y = int(space_avaliado_y / (1.25 * alien_altura))
 
     return num_linhas_y
 
 
 def aliens_em_x(configs, alien_largura):
     # Determina o número de alienígenas que cabem em uma linha.
-    space_avaliado_x = configs.tela_largura - 2 * alien_largura
-    num_aliens_x = int(space_avaliado_x / (2 * alien_largura))
+    space_avaliado_x = configs.tela_largura - 1.25 * alien_largura
+    num_aliens_x = int(space_avaliado_x / (1.25 * alien_largura))
 
     return num_aliens_x
 
@@ -100,10 +100,11 @@ def criar_alien(configs, tela, aliens, alien_num, num_linhas_y):
 
     alien_largura = alien.rect.width
 
-    alien.x = alien_largura + 2 * alien_largura * alien_num
+    # Determina a distância dos aliens um do outro (alterar apenas os números)
+    alien.x = alien_largura + 1.25 * alien_largura * alien_num
     alien.rect.x = alien.x
 
-    alien.rect.y = alien.rect.height + 2 * alien.rect.height * num_linhas_y
+    alien.rect.y = alien.rect.height + 1.25 * alien.rect.height * num_linhas_y
 
     aliens.add(alien)
 
