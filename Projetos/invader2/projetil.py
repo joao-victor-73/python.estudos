@@ -13,13 +13,13 @@ class Projetil(Sprite):
 
         # ret_p é o retângulo do projetil
         # Cria um retângulo para o projétil em (0, 0) e, em seguida, define a posição correta
-        self.ret_p = pygame.Rect(
+        self.rect = pygame.Rect(
             0, 0, configs.projetil_largura, configs.projetil_altura)
-        self.ret_p.centerx = nave.retangulo.centerx
-        self.ret_p.top = nave.retangulo.top
+        self.rect.centerx = nave.retangulo.centerx
+        self.rect.top = nave.retangulo.top
 
         # Armazena a posição do projétil como um valor decimal:
-        self.y = float(self.ret_p.y)
+        self.y = float(self.rect.y)
         self.cor = configs.projetil_cor
         self.velocidade = configs.projetil_velocidade
 
@@ -28,8 +28,8 @@ class Projetil(Sprite):
         self.y -= self.velocidade
 
         # atualiza a posição de ret_p
-        self.ret_p.y = self.y
+        self.rect.y = self.y
 
     def desenha_projetil(self):
         # Desenha o projétil na tela.
-        pygame.draw.rect(self.tela, self.cor, self.ret_p)
+        pygame.draw.rect(self.tela, self.cor, self.rect)

@@ -64,23 +64,33 @@ def atualizacao_tela(configs, tela, nave, aliens, projeteis):
     pygame.display.flip()  # Deixa a tela recente vísivel.
 
 
-# Atualiza a posição dos projéteis e se livra dos projéteis antigos.
-def atualizar_projeteis(projeteis):
+def atualizar_projeteis(configs, tela, nave, aliens, projeteis):
+    # Atualiza a posição dos projéteis e se livra dos projéteis antigos.
 
     # Atualiza as posições dos projéteis;
     projeteis.update()
 
     # Livra-se dos projéteis que desapareceram
     for projetil in projeteis.copy():
-        if projetil.ret_p.bottom <= 0:
+        if projetil.rect.bottom <= 0:
             projeteis.remove(projetil)
             print(len(projeteis))
+
+    # Verifica se algum projétil atingiu os alienígenas
+    # Em caso afirmativo, livra-se do projétil e do alienígena.
+    collisions = pygame.sprite.groupcollide(projeteis, aliens, True, True)
+
+    if len(aliens) == 0:
+        # Destrói os projéteis existentes e cria uma nova frota
+        projeteis.empty()
+        criar_frota(configs, tela, nave, aliens)
 
 
 def aliens_em_y(configs, nave_altura, alien_altura):
     ''' Determina o número de linhas com alienígenas que cabem na tela.'''
 
-    space_avaliado_y = (configs.tela_altura - (2.50 * alien_altura) - nave_altura)
+    space_avaliado_y = (configs.tela_altura -
+                        (2.50 * alien_altura) - nave_altura)
     num_linhas_y = int(space_avaliado_y / (1.25 * alien_altura))
 
     return num_linhas_y
@@ -124,7 +134,6 @@ def criar_frota(configs, tela, nave, aliens):  # Cria uma frota de alienigenas;
             criar_alien(configs, tela, aliens, alien_reto, alien_linha)
 
 
-
 def check_frota_borda(configs, aliens):
     ''' Responde apropriadamente se algum alienígena alcançou uma borda. '''
     for alien in aliens.sprites():
@@ -138,7 +147,6 @@ def mudar_direcao_frota(configs, aliens):
     for alien in aliens.sprites():
         alien.rect.y += configs.frota_velocidade
     configs.frota_direcao *= -1
-
 
 
 def atualizar_aliens(configs, aliens):
