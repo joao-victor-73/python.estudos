@@ -7,6 +7,7 @@ class Configurações():
 
         # Configurações da espaçonave:
         self.nave_velocidade = 1.5
+        self.nave_limite = 3
 
         # Configurações dos projéteis:
         self.projetil_velocidade = 2
@@ -17,7 +18,8 @@ class Configurações():
 
         # Configurações dos alienígenas:
         self.alien_velocidade = 1   # alien_velocidade = alien_speed_factor
-        self.frota_velocidade = 1  # frota_velocidade = fleet_drop_speed
+        self.frota_velocidade = 20  # frota_velocidade = fleet_drop_speed
+        ''' frota_velocidade também mexe com a velocidade de descer '''
 
-        self.frota_direcao = 1
-        # frota_direção = a 1 representa a direita; -1 representa a esquerda
+        self.frota_direcao = -1  # fleet_direction
+        # frota_direção = a 1 representa a direita; = a -1 representa a esquerda

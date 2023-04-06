@@ -15,8 +15,8 @@ class Projetil(Sprite):
         # Cria um retângulo para o projétil em (0, 0) e, em seguida, define a posição correta
         self.rect = pygame.Rect(
             0, 0, configs.projetil_largura, configs.projetil_altura)
-        self.rect.centerx = nave.retangulo.centerx
-        self.rect.top = nave.retangulo.top
+        self.rect.centerx = nave.rect.centerx
+        self.rect.top = nave.rect.top
 
         # Armazena a posição do projétil como um valor decimal:
         self.y = float(self.rect.y)

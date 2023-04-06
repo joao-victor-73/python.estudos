@@ -1,5 +1,6 @@
 import sys
 import pygame
+from time import sleep
 from projetil import Projetil
 from alien import Alien
 
@@ -76,6 +77,11 @@ def atualizar_projeteis(configs, tela, nave, aliens, projeteis):
             projeteis.remove(projetil)
             print(len(projeteis))
 
+    # check_bullet_alien_collisions
+    checa_se_acertou_alien(configs, tela, nave, aliens, projeteis)
+
+
+def checa_se_acertou_alien(configs, tela, nave, aliens, projeteis):
     # Verifica se algum projétil atingiu os alienígenas
     # Em caso afirmativo, livra-se do projétil e do alienígena.
     collisions = pygame.sprite.groupcollide(projeteis, aliens, True, True)
@@ -125,7 +131,7 @@ def criar_frota(configs, tela, nave, aliens):  # Cria uma frota de alienigenas;
 
     aliens_x = aliens_em_x(configs, alien.rect.width)
     aliens_y = aliens_em_y(
-        configs, nave.retangulo.height, alien.rect.height)
+        configs, nave.rect.height, alien.rect.height)
 
     # Cria a primeira linha de alienígenas
     for alien_linha in range(aliens_y):
@@ -134,7 +140,7 @@ def criar_frota(configs, tela, nave, aliens):  # Cria uma frota de alienigenas;
             criar_alien(configs, tela, aliens, alien_reto, alien_linha)
 
 
-def check_frota_borda(configs, aliens):
+def check_frota_borda(configs, aliens):  # check_fleet_edges
     ''' Responde apropriadamente se algum alienígena alcançou uma borda. '''
     for alien in aliens.sprites():
         if alien.checando_borda():
@@ -142,17 +148,56 @@ def check_frota_borda(configs, aliens):
             break
 
 
-def mudar_direcao_frota(configs, aliens):
+def mudar_direcao_frota(configs, aliens):  # change_fleet_direction
     ''' Faz toda a frota descer e muda a sua direção. '''
     for alien in aliens.sprites():
         alien.rect.y += configs.frota_velocidade
     configs.frota_direcao *= -1
 
 
-def atualizar_aliens(configs, aliens):
+def nave_hit(configs, stats, tela, nave, aliens, projeteis):
+    ''' Responde ao fato de a espaçonave ter sido atingida por um alienígena. '''
+
+    if stats.nave_esquerda > 0:  # verifica se o jogador ainda tem espaçonave
+        # Decrementa nave_limite
+        stats.nave_esquerda -= 1
+
+        # Esvazia a lista de alienígenas e de projéteis
+        aliens.empty()
+        projeteis.empty()
+
+        # Cria uma nova frota e centraliza a espaçonave
+        criar_frota(configs, tela, nave, aliens)
+        nave.centro_nave()
+
+        # Faz uma pausa para recriar o jogo
+        sleep(1)
+
+    else:
+        stats.game_active = False
+
+
+def checa_alien_borda_inferior(configs, stats, tela, nave, aliens, projeteis):
+    ''' Verifica se algum alien alcançou a borda inferior da tela. '''
+    tela_retangulo = tela.get_rect()
+    for alien in aliens.sprites():
+        if alien.rect.bottom >= tela_retangulo.bottom:
+            # Trata esse caso do mesmo modo que é feito quando a espaço nave é atingida
+            nave_hit(configs, stats, tela, nave, aliens, projeteis)
+            break
+
+
+def atualizar_aliens(configs, stats, tela, nave, aliens, projeteis):
     '''
     Verifica se a frota está em uma das bordas e então
     atualiza as posições de todos os alienígenas da frota.
     '''
     check_frota_borda(configs, aliens)
     aliens.update()
+
+    # Verifica se houve colisões entre alienígenas e a espaçonave
+    if pygame.sprite.spritecollideany(nave, aliens):
+        nave_hit(configs, stats, tela, nave, aliens, projeteis)
+
+    # Verifica se há algum alienígena que atengiu a parte inferior da tela
+    checa_alien_borda_inferior(configs, stats, tela, nave, aliens, projeteis)

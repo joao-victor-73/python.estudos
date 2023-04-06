@@ -16,18 +16,18 @@ class Nave():
         self.imagem = pygame.image.load(
             'Projetos\\invader2\\imagens\\nave2.bmp')
         self.imagem = pygame.transform.scale(self.imagem, [80, 80])
-        self.retangulo = self.imagem.get_rect()
+        self.rect = self.imagem.get_rect()
         # vai transformar a imagem acima em um retângulo!
 
         self.tela_retangulo = tela.get_rect()
 
-        self.retangulo.centerx = self.tela_retangulo.centerx
+        self.rect.centerx = self.tela_retangulo.centerx
         # vai pegar o valor do centro de X da tela e dizer que vai ser a mesma que a imagem!
 
-        self.retangulo.bottom = self.tela_retangulo.bottom
+        self.rect.bottom = self.tela_retangulo.bottom
 
         # Armazena um valor decimal para o centro da espaçonave
-        self.centro = float(self.retangulo.centerx)
+        self.centro = float(self.rect.centerx)
 
         # Flags de Movimentação
         self.mover_direita = False
@@ -37,15 +37,19 @@ class Nave():
         # Atualiza a posição da espaçonave de acordo com as flags de movimento!
 
         # Vai fazer a movimentação bloquear nos limites da tela
-        if self.mover_direita and self.retangulo.right < self.tela_retangulo.right:
+        if self.mover_direita and self.rect.right < self.tela_retangulo.right:
             self.centro += self.configs.nave_velocidade
 
-        if self.mover_esquerda and self.retangulo.left > 0:
+        if self.mover_esquerda and self.rect.left > 0:
             self.centro -= self.configs.nave_velocidade
 
         # Atualiza o objeto retangulo de acordo com self.center
-        self.retangulo.centerx = self.centro
+        self.rect.centerx = self.centro
 
     def blitme(self):
         # Desenha a espaçonave em sua posição atual
-        self.tela.blit(self.imagem, self.retangulo)
+        self.tela.blit(self.imagem, self.rect)
+
+    def centro_nave(self):
+        ''' Centraliza a espaçonave na tela! '''
+        self.center = self.tela_retangulo.centerx
