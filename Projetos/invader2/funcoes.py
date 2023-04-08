@@ -38,7 +38,7 @@ def soltar_teca(evento, nave):
         nave.mover_esquerda = False
 
 
-def checar_eventos(configs, tela, nave, projeteis):
+def checar_eventos(configs, tela, stats, botao_play, nave, projeteis):
     # Responde a eventos de pressionamento de teclas e de mouse
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
@@ -50,6 +50,16 @@ def checar_eventos(configs, tela, nave, projeteis):
         elif evento.type == pygame.KEYUP:
             soltar_teca(evento, nave)
 
+        elif evento.type == pygame.MOUSEBUTTONDOWN:
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            checando_botao_play(stats, botao_play, mouse_x, mouse_y)
+
+
+def checando_botao_play(stats, botao_play, mouse_x, mouse_y):
+    ''' Inicia um novo jogo quando o jogador clicar em Play. '''
+    if botao_play.rect.collidepoint(mouse_x, mouse_y):
+        stats.game_active = True
+
 
 def atualizacao_tela(configs, tela, stats, nave, aliens, projeteis, botao_play):
     # Os nomes dos parâmetros são os mesmos para falicitar!
@@ -58,7 +68,6 @@ def atualizacao_tela(configs, tela, stats, nave, aliens, projeteis, botao_play):
     # Redesenha todos os projéteis atrás da espaçonave e dos alienígenas.
     for projetil in projeteis.sprites():
         projetil.desenha_projetil()
-
 
     nave.blitme()  # Faz a nave aparecer na tela
     aliens.draw(tela)  # Faz o alien aparecer na tela
