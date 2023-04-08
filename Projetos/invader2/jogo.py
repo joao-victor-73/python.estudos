@@ -48,9 +48,5 @@ def rodando_jogo():
 
 rodando_jogo()
 
-'''
-OBS: Após as 3 tentativas (numero de naves) o jogo fica travado mesmo
-'''
 
-
-''' Finalizando na 416 (cap14) '''
+''' Finalizando na 427 (cap14) '''
