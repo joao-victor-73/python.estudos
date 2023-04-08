@@ -3,6 +3,7 @@ import pygame
 from pygame.sprite import Group
 from settings import Configurações
 from status import GameStats
+from botao import Botao
 from nave import Nave
 from alien import Alien
 import funcoes as f
@@ -17,6 +18,8 @@ def rodando_jogo():
 
     tela = pygame.display.set_mode((configs.tela_largura, configs.tela_altura))
     pygame.display.set_caption("JOGUINHO!")
+
+    botao_play = Botao(configs, tela, "Play")  # Cria o botão de Jogar
 
     # Trazendo as informações da nave para o programa principal!
     nave = Nave(tela, configs)
@@ -40,7 +43,7 @@ def rodando_jogo():
 
             f.atualizar_aliens(configs, stats, tela, nave, aliens, projeteis)
 
-            f.atualizacao_tela(configs, tela, nave, aliens, projeteis)
+        f.atualizacao_tela(configs, tela, stats, nave, aliens, projeteis, botao_play)
 
 
 rodando_jogo()

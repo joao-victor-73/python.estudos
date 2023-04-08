@@ -51,7 +51,7 @@ def checar_eventos(configs, tela, nave, projeteis):
             soltar_teca(evento, nave)
 
 
-def atualizacao_tela(configs, tela, nave, aliens, projeteis):
+def atualizacao_tela(configs, tela, stats, nave, aliens, projeteis, botao_play):
     # Os nomes dos parâmetros são os mesmos para falicitar!
     tela.fill(configs.fundo_tela)
 
@@ -59,8 +59,13 @@ def atualizacao_tela(configs, tela, nave, aliens, projeteis):
     for projetil in projeteis.sprites():
         projetil.desenha_projetil()
 
+
     nave.blitme()  # Faz a nave aparecer na tela
     aliens.draw(tela)  # Faz o alien aparecer na tela
+
+    # Desenha o botão Play se o jogo estiver inativo
+    if not stats.game_active:
+        botao_play.desenhar_botao()
 
     pygame.display.flip()  # Deixa a tela recente vísivel.
 
