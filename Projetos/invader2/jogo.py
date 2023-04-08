@@ -34,7 +34,7 @@ def rodando_jogo():
     f.criar_frota(configs, tela, nave, aliens)  # Cria uma frota de alienígena.
 
     while True:  # Laço principal de todo o jogo!
-        f.checar_eventos(configs, tela, stats, botao_play, nave, projeteis)
+        f.checar_eventos(configs, tela, stats, botao_play, nave, aliens, projeteis)
 
         if stats.game_active:
             nave.atualizar()
