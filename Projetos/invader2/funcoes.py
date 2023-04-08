@@ -52,12 +52,15 @@ def checar_eventos(configs, tela, stats, botao_play, nave, aliens, projeteis):
 
         elif evento.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            checando_botao_play(configs, tela, stats, botao_play, nave, aliens, projeteis, mouse_x, mouse_y)
+            checando_botao_play(configs, tela, stats, botao_play,
+                                nave, aliens, projeteis, mouse_x, mouse_y)
 
 
 def checando_botao_play(configs, tela, stats, botao_play, nave, aliens, projeteis, mouse_x, mouse_y):
     ''' Inicia um novo jogo quando o jogador clicar em Play. '''
-    if botao_play.rect.collidepoint(mouse_x, mouse_y):
+    botao_clicado = botao_play.rect.collidepoint(mouse_x, mouse_y)
+
+    if botao_clicado and not stats.game_active:
         # Reinia os dados estatísticos do jogo:
         stats.reset_stats()
 
@@ -66,6 +69,9 @@ def checando_botao_play(configs, tela, stats, botao_play, nave, aliens, projetei
         # Esvazia a lista de alienígenas e de projéteis
         aliens.empty()
         projeteis.empty()
+
+        # Ocultar o cursor do mouse
+        pygame.mouse.set_visible(False)
 
         # Cria uma nova frota e centraliza a espaçonave
         criar_frota(configs, tela, nave, aliens)
@@ -200,6 +206,7 @@ def nave_hit(configs, stats, tela, nave, aliens, projeteis):
 
     else:
         stats.game_active = False
+        pygame.mouse.set_visible(True)
 
 
 def checa_alien_borda_inferior(configs, stats, tela, nave, aliens, projeteis):
