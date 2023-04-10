@@ -78,7 +78,7 @@ def checando_botao_play(configs, tela, stats, botao_play, nave, aliens, projetei
         nave.centro_nave()
 
 
-def atualizacao_tela(configs, tela, stats, nave, aliens, projeteis, botao_play):
+def atualizacao_tela(configs, tela, stats, sb, nave, aliens, projeteis, botao_play):
     # Os nomes dos parâmetros são os mesmos para falicitar!
     tela.fill(configs.fundo_tela)
 
@@ -88,6 +88,9 @@ def atualizacao_tela(configs, tela, stats, nave, aliens, projeteis, botao_play):
 
     nave.blitme()  # Faz a nave aparecer na tela
     aliens.draw(tela)  # Faz o alien aparecer na tela
+
+    # Desenha a informação sobre pontuação
+    sb.mostrar_pontuacao()
 
     # Desenha o botão Play se o jogo estiver inativo
     if not stats.game_active:
