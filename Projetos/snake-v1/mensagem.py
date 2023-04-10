@@ -1,9 +1,39 @@
 import pygame
-from configs import Configurações
-
-config = Configurações()
 
 
+class Mensagens():
+    def __init__(self, config, msg, tela, cor):
+        self.tela = tela
+        self.tela_rect = tela.get_rect()
+
+        self.config = config
+
+        # Mensagem de Game Over quando morrer.
+        self.msg = msg
+
+        self.cor = cor
+
+        # Configuracoes para o texto
+        self.cor_texto = self.cor.indigo
+        self.fonte = pygame.font.SysFont('arial', 15, True, True)
+
+        self.prep_mensagem()
+
+    def prep_mensagem(self):
+        '''< Transforma a mensagem em uma imagem renderizada. >'''
+        self.men_over = self.fonte.render(self.msg, True, self.cor.preto)
+
+        self.men_over_rect = self.men_over.get_rect()
+
+        # Exibe a mensagem no meio da tela
+        self.men_over_rect.center = (
+            self.config.tela_largura // 2, self.config.tela_altura // 2)
+
+    def monstrar_mensagem(self):
+        self.tela.blit(self.men_over, self.men_over_rect)
+
+
+''''
 def fontes(fonte='arial', tamanho=15, negrito=False, italico=False):
     # Fonte = o tipo de fonte que vai querer;
     # tamanho = O tamanho da Fonte (valores inteiros);
@@ -35,3 +65,4 @@ def mensagem_game_over():
     texto_retangulo = texto_formatado.get_rect()
 
     return texto_formatado, texto_retangulo
+'''

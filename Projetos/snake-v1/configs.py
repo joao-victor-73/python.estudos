@@ -64,4 +64,6 @@ class Cores():
         self.azul_escuro = (0, 0, 139)
         self.ciano = (0, 255, 255)
 
+        self.preto = (0, 0, 0)
+
         # Para mais cores: https://celke.com.br/artigo/tabela-de-cores-html-nome-hexadecimal-rgb

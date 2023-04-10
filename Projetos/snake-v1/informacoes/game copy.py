@@ -1,7 +1,7 @@
 import pygame
 import sys
 from random import randint
-from configs import Configurações, Musicas
+from configs import Configurações, Musicas, Cores
 
 # tentar fazer modularização com esse código depois !!!!
 """ FALTA ORGANIZAR MELHOR ESSE CÓDIGO!!!!!!"""
@@ -10,6 +10,7 @@ from configs import Configurações, Musicas
 
 config = Configurações()
 musicas = Musicas()
+cor = Cores()
 
 
 def reiniciar():
@@ -80,7 +81,6 @@ def aumenta_cobra(lista_cobra):
         # XeY[0] = x
         # XeY[1] = y
         pygame.draw.rect(tela, verde, (XeY[0], XeY[1], 20, 20))
-
 
     # Laço princípal do jogo
 while True:
@@ -179,8 +179,8 @@ while True:
 
     lista_cobra.append(lista_cabeca)
 
-    # Essa condição vai dizer que a cabeça da cobra escostou nela mesma!
-    if lista_cobra.count(lista_cabeca) > 1:
+    # Essa condição vai dizer que a cabeça da cobra escostou nela mesma! Ou que ela saiu da tela
+    if lista_cobra.count(lista_cabeca) > 1 or ((x_cobra > config.tela_largura or x_cobra < 0) or (y_cobra < 0 or y_cobra > config.tela_altura)):
         fonte_over = pygame.font.SysFont('arial', 15, True, True)
         mensagem_over = 'Game Over! Precione "R" para jogar novamente!'
         texto_over_formatado = fonte_over.render(
@@ -203,18 +203,6 @@ while True:
                                 config.tela_altura // 2)
             tela.blit(texto_over_formatado, ret_texto)
             pygame.display.update()
-
-    # Modificar depois para o jogo encerrar quando tocar na lateral
-    # No momento, quando a cobra passar da tela, ela irá pro outro lado;
-    if x_cobra > config.tela_largura:
-        x_cobra = 0
-    if x_cobra < 0:
-        x_cobra = config.tela_largura
-
-    if y_cobra < 0:
-        y_cobra = config.tela_altura
-    if y_cobra > config.tela_altura:
-        y_cobra = 0
 
     if len(lista_cobra) > comprimento_inicial:
         del lista_cobra[0]
