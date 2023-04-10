@@ -57,21 +57,21 @@ def checar_eventos(configs, tela, stats, botao_play, nave, aliens, projeteis):
 
 
 def checando_botao_play(configs, tela, stats, botao_play, nave, aliens, projeteis, mouse_x, mouse_y):
-    ''' Inicia um novo jogo quando o jogador clicar em Play. '''
+    '''< Inicia um novo jogo quando o jogador clicar em Play. >'''
     botao_clicado = botao_play.rect.collidepoint(mouse_x, mouse_y)
 
     if botao_clicado and not stats.game_active:
-        # Reinia os dados estatísticos do jogo:
-        stats.reset_stats()
+        # Reinicia as configurações do jogo
+        configs.iniciar_configs_dinamicas()
+
+        # Ocultar o cursor do mouse
+        pygame.mouse.set_visible(False)
 
         stats.game_active = True
 
         # Esvazia a lista de alienígenas e de projéteis
         aliens.empty()
         projeteis.empty()
-
-        # Ocultar o cursor do mouse
-        pygame.mouse.set_visible(False)
 
         # Cria uma nova frota e centraliza a espaçonave
         criar_frota(configs, tela, nave, aliens)
@@ -118,13 +118,14 @@ def checa_se_acertou_alien(configs, tela, nave, aliens, projeteis):
     collisions = pygame.sprite.groupcollide(projeteis, aliens, True, True)
 
     if len(aliens) == 0:
-        # Destrói os projéteis existentes e cria uma nova frota
+        # Destrói projéteis existentes, aumenta a velocidade do jogo e cria nova frota
         projeteis.empty()
+        configs.incrementando_velocidade()
         criar_frota(configs, tela, nave, aliens)
 
 
 def aliens_em_y(configs, nave_altura, alien_altura):
-    ''' Determina o número de linhas com alienígenas que cabem na tela.'''
+    '''< Determina o número de linhas com alienígenas que cabem na tela. >'''
 
     space_avaliado_y = (configs.tela_altura -
                         (2.50 * alien_altura) - nave_altura)
