@@ -42,7 +42,7 @@ def rodando_jogo():
         if stats.game_active:
             nave.atualizar()
 
-            f.atualizar_projeteis(configs, tela, nave, aliens, projeteis)
+            f.atualizar_projeteis(configs, tela, stats, sb, nave, aliens, projeteis)
 
             f.atualizar_aliens(configs, stats, tela, nave, aliens, projeteis)
 
@@ -53,4 +53,4 @@ def rodando_jogo():
 rodando_jogo()
 
 
-''' Finalizando na 427 (cap14) '''
+''' Finalizando na 441 (cap14) '''

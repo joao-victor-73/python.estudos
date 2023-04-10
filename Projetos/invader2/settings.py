@@ -23,6 +23,9 @@ class Configurações():
         # A taxa com que a velocidade do jogo aumenta
         self.aumentar_velocidade = 1.1  # speedup_scale
 
+        # Taxa com que os pontos para cada alienígena aumentam
+        self.score_scale = 1.5
+
         self.iniciar_configs_dinamicas()
 
     def iniciar_configs_dinamicas(self):
@@ -34,9 +37,14 @@ class Configurações():
         self.frota_direcao = -1  # fleet_direction
         # frota_direção = a 1 representa a direita; = a -1 representa a esquerda
 
+        self.pontos_alien = 25
+
     def incrementando_velocidade(self):
         '''< Aumenta as configurações de velocidade. >'''
 
         self.nave_velocidade *= self.aumentar_velocidade
         self.projetil_velocidade *= self.aumentar_velocidade
         self.alien_velocidade *= self.aumentar_velocidade
+
+        self.pontos_alien = int(self.pontos_alien * self.score_scale)
+        print(self.pontos_alien)

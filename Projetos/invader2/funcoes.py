@@ -99,7 +99,7 @@ def atualizacao_tela(configs, tela, stats, sb, nave, aliens, projeteis, botao_pl
     pygame.display.flip()  # Deixa a tela recente vísivel.
 
 
-def atualizar_projeteis(configs, tela, nave, aliens, projeteis):
+def atualizar_projeteis(configs, tela, stats, sb, nave, aliens, projeteis):
     # Atualiza a posição dos projéteis e se livra dos projéteis antigos.
 
     # Atualiza as posições dos projéteis;
@@ -112,14 +112,24 @@ def atualizar_projeteis(configs, tela, nave, aliens, projeteis):
             print(len(projeteis))
 
     # check_bullet_alien_collisions
-    checa_se_acertou_alien(configs, tela, nave, aliens, projeteis)
+    checa_se_acertou_alien(configs, tela, stats, sb, nave, aliens, projeteis)
 
 
-def checa_se_acertou_alien(configs, tela, nave, aliens, projeteis):
-    # Verifica se algum projétil atingiu os alienígenas
-    # Em caso afirmativo, livra-se do projétil e do alienígena.
+# check_bullet_alien_colissions
+def checa_se_acertou_alien(configs, tela, stats, sb, nave, aliens, projeteis):
+    '''< Responde a colisões entre projéteis e alienígenas. >'''
+
+    # Remove qualquer projétil e alienígena que tenham colidido.
     collisions = pygame.sprite.groupcollide(projeteis, aliens, True, True)
 
+    if collisions:
+        for aliens in collisions.values():
+
+            stats.pontuacao += configs.pontos_alien * len(aliens)
+            sb.prep_score()
+
+    # Verifica se algum projétil atingiu os alienígenas
+    # Em caso afirmativo, livra-se do projétil e do alienígena.
     if len(aliens) == 0:
         # Destrói projéteis existentes, aumenta a velocidade do jogo e cria nova frota
         projeteis.empty()
