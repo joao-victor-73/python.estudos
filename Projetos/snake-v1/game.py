@@ -3,11 +3,11 @@ import sys
 from random import randint
 from configs import Configurações, Musicas, Cores
 from mensagem import Mensagens
+import funcoes as f
 
 # tentar fazer modularização com esse código depois !!!!
 """ FALTA ORGANIZAR MELHOR ESSE CÓDIGO!!!!!!"""
 
-''' CRIAR FUNÇÃO PARA A MENSAGEM DE MORTE'''
 
 config = Configurações()
 musicas = Musicas()
@@ -35,13 +35,6 @@ def reiniciar():
 
 pygame.init()  # -> Inicializar o pygame
 
-# config.musica_background
-
-
-# Isso aqui depois pode ser colocado em uma função ou em um dicionário
-vermelho = (255, 0, 0)
-verde = (0, 255, 0)
-azul = (0, 0, 255)
 
 # Criando váriaveis para X e Y
 x_cobra = ((config.tela_largura/2) - (80 / 2))
@@ -49,16 +42,13 @@ y_cobra = ((config.tela_altura/2) - (60 / 2))
 # em x foi feito um calcúlo para deixar o objeto no meio da tela
 # largura_tela / 2 - 80 / 2 -> 80 é a largura do objeto que vai ficar no meio!
 
-velocidade = 10  # variável para velocidade do objeto
-x_controle = velocidade
+x_controle = config.velocidade
 y_controle = 0
 
 # X e Y do retângulo 2
 x2 = randint(40, 600)
 y2 = randint(50, 430)
 
-pontos = 0  # variável para armazenar a pontuação
-cont = 0  # Variável para tocar música de 10 pontos
 
 fonte = pygame.font.SysFont('Arial', 25, True, True)  # variável para fonte
 # parâmetros -> 1ª: Tipo da fonte / 2ª Tamanho / 3ª Se vai estar em negrito / 4ª Em italico
@@ -71,9 +61,6 @@ tela = pygame.display.set_mode((config.tela_largura, config.tela_altura))
 pygame.display.set_caption('JOGINHO DA PLAYLIST!')
 
 lista_cobra = []  # lista que vai servir para guardar os aumentos da cobra!
-comprimento_inicial = 5
-
-game_over = False
 
 
 def aumenta_cobra(lista_cobra):
@@ -81,7 +68,7 @@ def aumenta_cobra(lista_cobra):
         # XeY vai ser igual a uma lista [].
         # XeY[0] = x
         # XeY[1] = y
-        pygame.draw.rect(tela, verde, (XeY[0], XeY[1], 20, 20))
+        pygame.draw.rect(tela, cor.verde, (XeY[0], XeY[1], 20, 20))
 
 
     # Laço princípal do jogo
@@ -93,7 +80,7 @@ while True:
 
     msg = Mensagens(config, men_game_over, tela, cor)
 
-    mensagem = f'Pontos: {pontos}'
+    mensagem = f'Pontos: {config.pontos}'
     texto_formatado = fonte.render(mensagem, False, (255, 255, 255))
 
     # o lopping for vai servir para checar os eventos!
@@ -105,31 +92,31 @@ while True:
         # Vai fazer com que a cobra fique em constante movimento.
         if evento.type == pygame.KEYDOWN:
             if evento.key == pygame.K_LEFT:
-                if x_controle == velocidade:
+                if x_controle == config.velocidade:
                     pass
                 else:
-                    x_controle = -velocidade
+                    x_controle = -config.velocidade
                     y_controle = 0
 
             if evento.key == pygame.K_RIGHT:
-                if x_controle == -velocidade:
+                if x_controle == -config.velocidade:
                     pass
                 else:
-                    x_controle = velocidade
+                    x_controle = config.velocidade
                     y_controle = 0
 
             if evento.key == pygame.K_UP:
-                if y_controle == velocidade:
+                if y_controle == config.velocidade:
                     pass
                 else:
-                    y_controle = -velocidade
+                    y_controle = -config.velocidade
                     x_controle = 0
 
             if evento.key == pygame.K_DOWN:
-                if y_controle == -velocidade:
+                if y_controle == -config.velocidade:
                     pass
                 else:
-                    y_controle = velocidade
+                    y_controle = config.velocidade
                     x_controle = 0
 
     x_cobra += x_controle
@@ -151,8 +138,8 @@ while True:
     '''
 
     # Retângulos:
-    cobra = pygame.draw.rect(tela, verde, (x_cobra, y_cobra, 20, 20))
-    ret2 = pygame.draw.rect(tela, azul, (x2, y2, 10, 10))
+    cobra = pygame.draw.rect(tela, cor.verde, (x_cobra, y_cobra, 20, 20))
+    ret2 = pygame.draw.rect(tela, cor.azul, (x2, y2, 10, 10))
 
     # trabalhando as colisões
     if cobra.colliderect(ret2):
@@ -161,21 +148,21 @@ while True:
         # cada vez que o retangulo 1 colider com o outro, os valores X e Y serão
         # randimicamentes alterados
 
-        pontos += 1  # toda vez que houver colisão, os pontos vão subir
+        config.pontos += 1  # toda vez que houver colisão, os pontos vão subir
 
-        comprimento_inicial += 1
+        config.comprimento_inicial += 1
 
         # Coisa extra: toda vez que coletar 10 pontos, ele toca uma outra música
-        cont += 1
-        if cont == 10:
+        config.cont += 1
+        if config.cont == 10:
             musicas.musica_10pontos.play()
-            cont = 0
+            config.cont = 0
         else:
             # O barulho de colisão apenas rodará quando ouver colisão
             musicas.musica_coleta.play()
 
     # Vai deixar o jogo mais rapido quando atingir determinado x pontos
-    if pontos >= 20:
+    if config.pontos >= 20:
         velocidade = 20
 
     # Funcionalidade para fazer a cobra crescer a medida que come os pontos!
@@ -203,7 +190,7 @@ while True:
             msg.monstrar_mensagem()
             pygame.display.update()
 
-    if len(lista_cobra) > comprimento_inicial:
+    if len(lista_cobra) > config.comprimento_inicial:
         del lista_cobra[0]
 
     aumenta_cobra(lista_cobra)

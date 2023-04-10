@@ -2,11 +2,11 @@ import pygame
 import sys
 from random import randint
 from configs import Configurações, Musicas, Cores
+from mensagem import Mensagens
 
 # tentar fazer modularização com esse código depois !!!!
 """ FALTA ORGANIZAR MELHOR ESSE CÓDIGO!!!!!!"""
 
-''' CRIAR FUNÇÃO PARA A MENSAGEM DE MORTE'''
 
 config = Configurações()
 musicas = Musicas()
@@ -34,13 +34,6 @@ def reiniciar():
 
 pygame.init()  # -> Inicializar o pygame
 
-# config.musica_background
-
-
-# Isso aqui depois pode ser colocado em uma função ou em um dicionário
-vermelho = (255, 0, 0)
-verde = (0, 255, 0)
-azul = (0, 0, 255)
 
 # Criando váriaveis para X e Y
 x_cobra = ((config.tela_largura/2) - (80 / 2))
@@ -80,12 +73,17 @@ def aumenta_cobra(lista_cobra):
         # XeY vai ser igual a uma lista [].
         # XeY[0] = x
         # XeY[1] = y
-        pygame.draw.rect(tela, verde, (XeY[0], XeY[1], 20, 20))
+        pygame.draw.rect(tela, cor.verde, (XeY[0], XeY[1], 20, 20))
+
 
     # Laço princípal do jogo
 while True:
     pygame.time.Clock().tick(10)  # Diminui o FPS do jogo, uma coisa útil!
     tela.fill(config.tela_cor)
+
+    men_game_over = 'Game Over! Pressione "R" para jogar novamente!'
+
+    msg = Mensagens(config, men_game_over, tela, cor)
 
     mensagem = f'Pontos: {pontos}'
     texto_formatado = fonte.render(mensagem, False, (255, 255, 255))
@@ -145,8 +143,8 @@ while True:
     '''
 
     # Retângulos:
-    cobra = pygame.draw.rect(tela, verde, (x_cobra, y_cobra, 20, 20))
-    ret2 = pygame.draw.rect(tela, azul, (x2, y2, 10, 10))
+    cobra = pygame.draw.rect(tela, cor.verde, (x_cobra, y_cobra, 20, 20))
+    ret2 = pygame.draw.rect(tela, cor.azul, (x2, y2, 10, 10))
 
     # trabalhando as colisões
     if cobra.colliderect(ret2):
@@ -181,11 +179,6 @@ while True:
 
     # Essa condição vai dizer que a cabeça da cobra escostou nela mesma! Ou que ela saiu da tela
     if lista_cobra.count(lista_cabeca) > 1 or ((x_cobra > config.tela_largura or x_cobra < 0) or (y_cobra < 0 or y_cobra > config.tela_altura)):
-        fonte_over = pygame.font.SysFont('arial', 15, True, True)
-        mensagem_over = 'Game Over! Precione "R" para jogar novamente!'
-        texto_over_formatado = fonte_over.render(
-            mensagem_over, True, (0, 0, 0))
-        ret_texto = texto_over_formatado.get_rect()
 
         morreu = True
         while morreu:
@@ -199,9 +192,7 @@ while True:
                     if evento.key == pygame.K_r:
                         reiniciar()
 
-            ret_texto.center = (config.tela_largura // 2,
-                                config.tela_altura // 2)
-            tela.blit(texto_over_formatado, ret_texto)
+            msg.monstrar_mensagem()
             pygame.display.update()
 
     if len(lista_cobra) > comprimento_inicial:
