@@ -3,6 +3,7 @@ import sys
 from random import randint
 from configs import Configurações, Musicas, Cores
 from mensagem import Mensagens
+from cobra import Cobra
 import funcoes as f
 
 # tentar fazer modularização com esse código depois !!!!
@@ -36,12 +37,6 @@ def reiniciar():
 pygame.init()  # -> Inicializar o pygame
 
 
-# Criando váriaveis para X e Y
-x_cobra = ((config.tela_largura/2) - (80 / 2))
-y_cobra = ((config.tela_altura/2) - (60 / 2))
-# em x foi feito um calcúlo para deixar o objeto no meio da tela
-# largura_tela / 2 - 80 / 2 -> 80 é a largura do objeto que vai ficar no meio!
-
 x_controle = config.velocidade
 y_controle = 0
 
@@ -73,6 +68,9 @@ def aumenta_cobra(lista_cobra):
 
     # Laço princípal do jogo
 while True:
+
+    cobra = Cobra(config, tela, cor)
+
     pygame.time.Clock().tick(10)  # Diminui o FPS do jogo, uma coisa útil!
     tela.fill(config.tela_cor)
 
@@ -119,8 +117,8 @@ while True:
                     y_controle = config.velocidade
                     x_controle = 0
 
-    x_cobra += x_controle
-    y_cobra += y_controle
+    cobra.x_cobra += x_controle
+    cobra.y_cobra += y_controle
 
     '''
     # Comandos para fazer o objeto se mover por conta do usuário!
@@ -138,7 +136,7 @@ while True:
     '''
 
     # Retângulos:
-    cobra = pygame.draw.rect(tela, cor.verde, (x_cobra, y_cobra, 20, 20))
+    cobra = cobra.desenhar_cobra()
     ret2 = pygame.draw.rect(tela, cor.azul, (x2, y2, 10, 10))
 
     # trabalhando as colisões
@@ -167,13 +165,13 @@ while True:
 
     # Funcionalidade para fazer a cobra crescer a medida que come os pontos!
     lista_cabeca = []
-    lista_cabeca.append(x_cobra)
-    lista_cabeca.append(y_cobra)
+    lista_cabeca.append(cobra.x_cobra)
+    lista_cabeca.append(cobra.y_cobra)
 
     lista_cobra.append(lista_cabeca)
 
     # Essa condição vai dizer que a cabeça da cobra escostou nela mesma! Ou que ela saiu da tela
-    if lista_cobra.count(lista_cabeca) > 1 or ((x_cobra > config.tela_largura or x_cobra < 0) or (y_cobra < 0 or y_cobra > config.tela_altura)):
+    if lista_cobra.count(lista_cabeca) > 1 or ((cobra.x_cobra > config.tela_largura or cobra.x_cobra < 0) or (cobra.y_cobra < 0 or cobra.y_cobra > config.tela_altura)):
 
         morreu = True
         while morreu:
