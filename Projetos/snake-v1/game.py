@@ -4,6 +4,7 @@ from random import randint
 from configs import Configurações, Musicas, Cores
 from mensagem import Mensagens
 from cobra import Cobra
+from comida import Comida
 import funcoes as f
 
 # tentar fazer modularização com esse código depois !!!!
@@ -36,10 +37,6 @@ def reiniciar():
 
 pygame.init()  # -> Inicializar o pygame
 
-
-x_controle = config.velocidade
-y_controle = 0
-
 # X e Y do retângulo 2
 x2 = randint(40, 600)
 y2 = randint(50, 430)
@@ -70,6 +67,7 @@ def aumenta_cobra(lista_cobra):
 while True:
 
     cobra = Cobra(config, tela, cor)
+    comida = Comida(config, tela, cor)
 
     pygame.time.Clock().tick(10)  # Diminui o FPS do jogo, uma coisa útil!
     tela.fill(config.tela_cor)
@@ -90,35 +88,35 @@ while True:
         # Vai fazer com que a cobra fique em constante movimento.
         if evento.type == pygame.KEYDOWN:
             if evento.key == pygame.K_LEFT:
-                if x_controle == config.velocidade:
+                if cobra.x_controle == config.velocidade:
                     pass
                 else:
-                    x_controle = -config.velocidade
-                    y_controle = 0
+                    cobra.x_controle = -config.velocidade
+                    cobra.y_controle = 0
 
             if evento.key == pygame.K_RIGHT:
-                if x_controle == -config.velocidade:
+                if cobra.x_controle == -config.velocidade:
                     pass
                 else:
-                    x_controle = config.velocidade
-                    y_controle = 0
+                    cobra.x_controle = config.velocidade
+                    cobra.y_controle = 0
 
             if evento.key == pygame.K_UP:
-                if y_controle == config.velocidade:
+                if cobra.y_controle == config.velocidade:
                     pass
                 else:
-                    y_controle = -config.velocidade
-                    x_controle = 0
+                    cobra.y_controle = -config.velocidade
+                    cobra.x_controle = 0
 
             if evento.key == pygame.K_DOWN:
-                if y_controle == -config.velocidade:
+                if cobra.y_controle == -config.velocidade:
                     pass
                 else:
-                    y_controle = config.velocidade
-                    x_controle = 0
+                    cobra.y_controle = config.velocidade
+                    cobra.x_controle = 0
 
-    cobra.x_cobra += x_controle
-    cobra.y_cobra += y_controle
+    cobra.x_cobra += cobra.x_controle
+    cobra.y_cobra += cobra.y_controle
 
     '''
     # Comandos para fazer o objeto se mover por conta do usuário!
@@ -135,33 +133,11 @@ while True:
         y_cobra += velocidade
     '''
 
-    # Retângulos:
-    cobra = cobra.desenhar_cobra()
-    ret2 = pygame.draw.rect(tela, cor.azul, (x2, y2, 10, 10))
+    cobrinha = cobra.desenhar_cobra()
+    maca = comida.desenhar_maca()
 
     # trabalhando as colisões
-    if cobra.colliderect(ret2):
-        x2 = randint(40, 600)
-        y2 = randint(50, 430)
-        # cada vez que o retangulo 1 colider com o outro, os valores X e Y serão
-        # randimicamentes alterados
-
-        config.pontos += 1  # toda vez que houver colisão, os pontos vão subir
-
-        config.comprimento_inicial += 1
-
-        # Coisa extra: toda vez que coletar 10 pontos, ele toca uma outra música
-        config.cont += 1
-        if config.cont == 10:
-            musicas.musica_10pontos.play()
-            config.cont = 0
-        else:
-            # O barulho de colisão apenas rodará quando ouver colisão
-            musicas.musica_coleta.play()
-
-    # Vai deixar o jogo mais rapido quando atingir determinado x pontos
-    if config.pontos >= 20:
-        velocidade = 20
+    f.colisoes_maca(config, comida, musicas, cobrinha, maca)
 
     # Funcionalidade para fazer a cobra crescer a medida que come os pontos!
     lista_cabeca = []
