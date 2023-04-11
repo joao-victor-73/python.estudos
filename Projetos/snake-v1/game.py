@@ -16,30 +16,27 @@ musicas = Musicas()
 cor = Cores()
 
 
-def reiniciar():
+def reiniciar(config, cobra, comida):
     global pontos, velocidade, cont, comprimento_inicial, x_cobra, y_cobra, lista_cobra, lista_cabeca, x2, y2, morreu
 
-    pontos = cont = 0
-    velocidade = 10
-    comprimento_inicial = 5
+    config.pontos = 0
+    config.cont = 0
+    config.velocidade = 10
+    config.comprimento_inicial = 5
 
-    x_cobra = ((config.tela_largura/2) - (80 / 2))
-    y_cobra = ((config.tela_altura/2) - (60 / 2))
+    cobra.x_cobra = ((config.tela_largura/2) - (80 / 2))
+    cobra.y_cobra = ((config.tela_altura/2) - (60 / 2))
 
     lista_cabeca = []
     lista_cobra = []
 
-    x2 = randint(40, 600)
-    y2 = randint(50, 430)
+    comida.maca_x = randint(40, 600)
+    comida.maca_y = randint(50, 430)
 
     morreu = False
 
 
 pygame.init()  # -> Inicializar o pygame
-
-# X e Y do retângulo 2
-x2 = randint(40, 600)
-y2 = randint(50, 430)
 
 
 fonte = pygame.font.SysFont('Arial', 25, True, True)  # variável para fonte
@@ -61,7 +58,6 @@ def aumenta_cobra(lista_cobra):
         # XeY[0] = x
         # XeY[1] = y
         pygame.draw.rect(tela, cor.verde, (XeY[0], XeY[1], 20, 20))
-
 
     # Laço princípal do jogo
 while True:
@@ -159,7 +155,7 @@ while True:
 
                 if evento.type == pygame.KEYDOWN:
                     if evento.key == pygame.K_r:
-                        reiniciar()
+                        reiniciar(config, cobra, comida)
 
             msg.monstrar_mensagem()
             pygame.display.update()
