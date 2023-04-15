@@ -1,4 +1,5 @@
 import pygame
+from pygame.sprite import Sprite
 
 '''
 tela_retangulo = screen_rect
@@ -8,15 +9,17 @@ moving_left = mover_esquerda
 '''
 
 
-class Nave():
+class Nave(Sprite):
     def __init__(self, tela, configs):
+        super(Nave, self).__init__()
+
         self.tela = tela
         self.configs = configs
 
-        self.imagem = pygame.image.load(
+        self.image = pygame.image.load(
             'Projetos\\invader2\\imagens\\nave2.bmp')
-        self.imagem = pygame.transform.scale(self.imagem, [80, 80])
-        self.rect = self.imagem.get_rect()
+        self.image = pygame.transform.scale(self.image, [80, 80])
+        self.rect = self.image.get_rect()
         # vai transformar a imagem acima em um retângulo!
 
         self.tela_retangulo = tela.get_rect()
@@ -48,7 +51,7 @@ class Nave():
 
     def blitme(self):
         # Desenha a espaçonave em sua posição atual
-        self.tela.blit(self.imagem, self.rect)
+        self.tela.blit(self.image, self.rect)
 
     def centro_nave(self):
         ''' Centraliza a espaçonave na tela! '''

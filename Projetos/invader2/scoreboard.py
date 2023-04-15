@@ -1,4 +1,6 @@
 import pygame.font
+from pygame.sprite import Group
+from nave import Nave
 
 
 class Scoreboard():
@@ -19,6 +21,7 @@ class Scoreboard():
         self.prep_score()
         self.prep_max_pontuacao()
         self.prep_level()
+        self.prep_naves()
 
     def prep_score(self):
         '''< Transforma a pontuação em uma imagem renderizada. >'''
@@ -54,8 +57,21 @@ class Scoreboard():
         self.level_rect.right = self.pontuacao_rect.right
         self.level_rect.top = self.pontuacao_rect.bottom + 10
 
+    def prep_naves(self):
+        '''< Mostra quantas espaçonaves restam. >'''
+        self.naves = Group()
+
+        for nave_num in range(self.stats.nave_esquerda):
+            nave = Nave(self.tela, self.configs)
+            nave.rect.x = 10 + nave_num * nave.rect.width
+            nave.rect.y = 10
+            self.naves.add(nave)
+
     def mostrar_pontuacao(self):
         '''< Desenha a pontuação na tela. >'''
         self.tela.blit(self.pontuacao_imagem, self.pontuacao_rect)
         self.tela.blit(self.max_pontuacao_imagem, self.max_pontuacao_rect)
         self.tela.blit(self.level_imagem, self.level_rect)
+
+        # Desenha as espaçonaves
+        self.naves.draw(self.tela)

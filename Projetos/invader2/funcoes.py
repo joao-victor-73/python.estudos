@@ -75,6 +75,7 @@ def checando_botao_play(configs, tela, stats, sb, botao_play, nave, aliens, proj
         sb.prep_score()
         sb.prep_max_pontuacao()
         sb.prep_level()
+        sb.prep_naves()
 
         # Esvazia a lista de alienígenas e de projéteis
         aliens.empty()
@@ -214,12 +215,15 @@ def mudar_direcao_frota(configs, aliens):  # change_fleet_direction
     configs.frota_direcao *= -1
 
 
-def nave_hit(configs, stats, tela, nave, aliens, projeteis):
+def nave_hit(configs, tela, stats, sb, nave, aliens, projeteis):
     ''' Responde ao fato de a espaçonave ter sido atingida por um alienígena. '''
 
     if stats.nave_esquerda > 0:  # verifica se o jogador ainda tem espaçonave
         # Decrementa nave_limite
         stats.nave_esquerda -= 1
+
+        # Atualiza o painel de pontuações
+        sb.prep_naves()
 
         # Esvazia a lista de alienígenas e de projéteis
         aliens.empty()
@@ -237,17 +241,17 @@ def nave_hit(configs, stats, tela, nave, aliens, projeteis):
         pygame.mouse.set_visible(True)
 
 
-def checa_alien_borda_inferior(configs, stats, tela, nave, aliens, projeteis):
+def checa_alien_borda_inferior(configs, tela, stats, sb, nave, aliens, projeteis):
     ''' Verifica se algum alien alcançou a borda inferior da tela. '''
     tela_retangulo = tela.get_rect()
     for alien in aliens.sprites():
         if alien.rect.bottom >= tela_retangulo.bottom:
             # Trata esse caso do mesmo modo que é feito quando a espaço nave é atingida
-            nave_hit(configs, stats, tela, nave, aliens, projeteis)
+            nave_hit(configs, tela, stats, sb, nave, aliens, projeteis)
             break
 
 
-def atualizar_aliens(configs, stats, tela, nave, aliens, projeteis):
+def atualizar_aliens(configs, tela, stats, sb, nave, aliens, projeteis):
     '''
     Verifica se a frota está em uma das bordas e então
     atualiza as posições de todos os alienígenas da frota.
@@ -257,10 +261,11 @@ def atualizar_aliens(configs, stats, tela, nave, aliens, projeteis):
 
     # Verifica se houve colisões entre alienígenas e a espaçonave
     if pygame.sprite.spritecollideany(nave, aliens):
-        nave_hit(configs, stats, tela, nave, aliens, projeteis)
+        nave_hit(configs, tela, stats, sb, nave, aliens, projeteis)
 
     # Verifica se há algum alienígena que atengiu a parte inferior da tela
-    checa_alien_borda_inferior(configs, stats, tela, nave, aliens, projeteis)
+    checa_alien_borda_inferior(
+        configs, tela, stats, sb, nave, aliens, projeteis)
 
 
 def check_high_score(stats, sb):

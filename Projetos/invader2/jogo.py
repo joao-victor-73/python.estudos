@@ -44,7 +44,7 @@ def rodando_jogo():
 
             f.atualizar_projeteis(configs, tela, stats, sb, nave, aliens, projeteis)
 
-            f.atualizar_aliens(configs, stats, tela, nave, aliens, projeteis)
+            f.atualizar_aliens(configs, tela, stats, sb, nave, aliens, projeteis)
 
         f.atualizacao_tela(configs, tela, stats, sb, nave,
                            aliens, projeteis, botao_play)
