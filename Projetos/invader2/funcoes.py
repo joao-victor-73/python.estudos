@@ -128,6 +128,8 @@ def checa_se_acertou_alien(configs, tela, stats, sb, nave, aliens, projeteis):
             stats.pontuacao += configs.pontos_alien * len(aliens)
             sb.prep_score()
 
+        check_high_score(stats, sb)
+
     # Verifica se algum projétil atingiu os alienígenas
     # Em caso afirmativo, livra-se do projétil e do alienígena.
     if len(aliens) == 0:
@@ -247,3 +249,10 @@ def atualizar_aliens(configs, stats, tela, nave, aliens, projeteis):
 
     # Verifica se há algum alienígena que atengiu a parte inferior da tela
     checa_alien_borda_inferior(configs, stats, tela, nave, aliens, projeteis)
+
+
+def check_high_score(stats, sb):
+    '''< Verifica se há uma nova pontuação máxima. >'''
+    if stats.pontuacao > stats.max_pontuacao:
+        stats.max_pontuacao = stats.pontuacao
+        sb.prep_max_pontuacao()

@@ -17,6 +17,7 @@ class Scoreboard():
 
         # Prepara a imagem da pontuação inicial
         self.prep_score()
+        self.prep_max_pontuacao()
 
     def prep_score(self):
         '''< Transforma a pontuação em uma imagem renderizada. >'''
@@ -30,6 +31,18 @@ class Scoreboard():
         self.pontuacao_rect.right = self.tela_rect.right - 20
         self.pontuacao_rect.top = 20
 
+    def prep_max_pontuacao(self):
+        '''< Transforma a pontuação máxima em uma imagem renderizada. >'''
+        max_pontuacao = int(round(self.stats.max_pontuacao, -1))
+        max_pontuacao_str = "{:,}".format(max_pontuacao)
+        self.max_pontuacao_imagem = self.font.render(max_pontuacao_str, True, self.cor_texto, self.configs.fundo_tela)
+
+        # Centraliza a pontuaçãoa máxima na parte superior da tela
+        self.max_pontuacao_rect = self.max_pontuacao_imagem.get_rect()
+        self.max_pontuacao_rect.centerx = self.tela_rect.centerx
+        self.max_pontuacao_rect.top = self.pontuacao_rect.top
+
     def mostrar_pontuacao(self):
         '''< Desenha a pontuação na tela. >'''
         self.tela.blit(self.pontuacao_imagem, self.pontuacao_rect)
+        self.tela.blit(self.max_pontuacao_imagem, self.max_pontuacao_rect)
