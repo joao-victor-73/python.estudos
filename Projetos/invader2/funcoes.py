@@ -38,7 +38,7 @@ def soltar_teca(evento, nave):
         nave.mover_esquerda = False
 
 
-def checar_eventos(configs, tela, stats, botao_play, nave, aliens, projeteis):
+def checar_eventos(configs, tela, stats, sb, botao_play, nave, aliens, projeteis):
     # Responde a eventos de pressionamento de teclas e de mouse
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
@@ -52,11 +52,11 @@ def checar_eventos(configs, tela, stats, botao_play, nave, aliens, projeteis):
 
         elif evento.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            checando_botao_play(configs, tela, stats, botao_play,
+            checando_botao_play(configs, tela, stats, sb, botao_play,
                                 nave, aliens, projeteis, mouse_x, mouse_y)
 
 
-def checando_botao_play(configs, tela, stats, botao_play, nave, aliens, projeteis, mouse_x, mouse_y):
+def checando_botao_play(configs, tela, stats, sb, botao_play, nave, aliens, projeteis, mouse_x, mouse_y):
     '''< Inicia um novo jogo quando o jogador clicar em Play. >'''
     botao_clicado = botao_play.rect.collidepoint(mouse_x, mouse_y)
 
@@ -67,7 +67,14 @@ def checando_botao_play(configs, tela, stats, botao_play, nave, aliens, projetei
         # Ocultar o cursor do mouse
         pygame.mouse.set_visible(False)
 
+        # Reinicia os dados estatísticos do jogo
+        stats.reset_stats()
         stats.game_active = True
+
+        # Reinicia as immagens do painel de pontuação
+        sb.prep_score()
+        sb.prep_max_pontuacao()
+        sb.prep_level()
 
         # Esvazia a lista de alienígenas e de projéteis
         aliens.empty()
@@ -133,9 +140,14 @@ def checa_se_acertou_alien(configs, tela, stats, sb, nave, aliens, projeteis):
     # Verifica se algum projétil atingiu os alienígenas
     # Em caso afirmativo, livra-se do projétil e do alienígena.
     if len(aliens) == 0:
-        # Destrói projéteis existentes, aumenta a velocidade do jogo e cria nova frota
+        # Se a frota toda for destruída, inicia um novo nível
         projeteis.empty()
         configs.incrementando_velocidade()
+
+        # Aumenta o nível
+        stats.level += 1
+        sb.prep_level()
+
         criar_frota(configs, tela, nave, aliens)
 
 

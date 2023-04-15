@@ -17,3 +17,4 @@ class GameStats():
         self.nave_esquerda = self.configs.nave_limite
 
         self.pontuacao = 0
+        self.level = 1
