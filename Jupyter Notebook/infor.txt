@@ -3,3 +3,7 @@ basta ir na Seção 6 - Aula 322 e 323 do curso da Udemy,
 que lá fala mais um pouco sobre isso.
 
 >> Anotação para mim <<
+
+Para acessar o Jupyter Notebook, eu tenho que primeiro ligar
+a venv e depois dar o comando pelo terminal.
+Deixei o Jupyter apenas instalado na virtual e não na global.
