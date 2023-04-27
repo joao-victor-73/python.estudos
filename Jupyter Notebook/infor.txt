@@ -1,0 +1,5 @@
+Para mais informações sobre Jupyter Notebook,
+basta ir na Seção 6 - Aula 322 e 323 do curso da Udemy,
+que lá fala mais um pouco sobre isso.
+
+>> Anotação para mim <<
