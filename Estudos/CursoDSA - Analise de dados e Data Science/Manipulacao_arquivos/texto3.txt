@@ -1,0 +1,1 @@
+Isso é um texto que diz uma frase que vai fazer sentido em algum momento. Vamos colocar essa frase concatenada com a anterior. E é claro, devemos adicionar uma linha final. ----------------- 
