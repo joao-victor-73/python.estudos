@@ -1,4 +1,4 @@
-# Projeto 1 - Desenvolvimento de Game em Python - Aula 1/5
+# Projeto 1 - Desenvolvimento de Game em Python - Aula 2/5
 
 # Importando bibliotecas
 import random
@@ -15,3 +15,26 @@ def limpa_tela():
     # Se for outro sistema (Mac ou Linux):
     else:
         _ = system('clear')
+
+
+def game():
+
+    limpa_tela()
+
+    print("\nBem-vindo(a) ao >>JOGO DA FORCA<<")
+    print("Adivinhe a palavra abaixo:\n")
+
+    # Lista de palavras para o jogo
+    palavras = ['banana', 'abacate', 'uva', 'morango', 'laranja']
+
+    # Escolhe randomicamente uma palavra:
+    palavra = random.choice(palavras)
+
+    # List comprehension
+    letras_descobertas = ['_' for letra in palavra]
+
+    # Número de chances
+    chances = 6
+
+    # Lista para as letras erradas
+    letras_erradas = []
