@@ -4,6 +4,7 @@
 import random
 from os import system, name
 import estagios
+import mensagens as msg
 
 
 def limpa_tela():
@@ -22,8 +23,7 @@ def game():
 
     limpa_tela()
 
-    print("\nBem-vindo(a) ao >>JOGO DA FORCA<<")
-    print("Adivinhe a palavra abaixo:\n")
+    msg.cabecalho()
 
     # Lista de palavras para o jogo
     CAMINHO_ARQUIVO = '.\\palavras.txt'
