@@ -1,4 +1,4 @@
-# Projeto 1 - Desenvolvimento de Game em Python - Aula 3/5
+# Projeto 1 - Desenvolvimento de Game em Python - Aula 4/5
 
 # Importando bibliotecas
 import random
@@ -52,7 +52,7 @@ def game():
         # Condicional
         if tentativa in palavra:
             index = 0
-            
+
             for letra in palavra:
                 if tentativa == letra:
                     letras_descobertas[index] = letra
@@ -60,3 +60,15 @@ def game():
         else:
             chances -= 1
             letras_erradas.append(tentativa)
+
+        # Condicional 2
+        if "_" not in letras_descobertas:
+            print(f"\n Você venceu, a palavra era: {palavra}")
+            break
+
+    # Condicional fora do while:
+    if "_" in letras_descobertas:
+        print(f"\nVocê perdeu. A palavra era: {palavra}")
+
+
+game()
