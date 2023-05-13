@@ -1,4 +1,4 @@
-# Projeto 1 - Desenvolvimento de Game em Python - Aula 2/5
+# Projeto 1 - Desenvolvimento de Game em Python - Aula 3/5
 
 # Importando bibliotecas
 import random
@@ -38,3 +38,25 @@ def game():
 
     # Lista para as letras erradas
     letras_erradas = []
+
+    # Loop enquanto número de chances for maior do que zero:
+    while chances > 0:
+
+        print(" ".join(letras_descobertas))
+        print(f"\nChances restantes: {chances}")
+        print("Letras erradas:", " ".join(letras_erradas))
+
+        # Tentativa
+        tentativa = input("\nDigite uma letra: ").lower()
+
+        # Condicional
+        if tentativa in palavra:
+            index = 0
+            
+            for letra in palavra:
+                if tentativa == letra:
+                    letras_descobertas[index] = letra
+                index += 1
+        else:
+            chances -= 1
+            letras_erradas.append(tentativa)
