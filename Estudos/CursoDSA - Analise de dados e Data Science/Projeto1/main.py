@@ -3,6 +3,7 @@
 # Importando bibliotecas
 import random
 from os import system, name
+import estagios
 
 
 def limpa_tela():
@@ -17,84 +18,6 @@ def limpa_tela():
         _ = system('clear')
 
 
-def display_hangman(chances):
-    '''Função qie desemja a forca na tela.'''
-
-    # Lista de estários da forca
-    stages = [  # Estágio 6 (final)
-        '''
-        ----------
-        |        |
-        |        0
-        |       \\|/
-        |        |
-        |       / \\
-        -
-        ''',
-        # Estágio 5
-        '''
-        ----------
-        |        |
-        |        0
-        |       \\|/
-        |        |
-        |       / 
-        -
-        ''',
-        # Estágio 4
-        '''
-        ----------
-        |        |
-        |        0
-        |       \\|/
-        |        |
-        |       
-        -
-        ''',
-        # Estágio 3
-        '''
-        ----------
-        |        |
-        |        0
-        |       \\|
-        |        |
-        |       
-        -
-        ''',
-        # Estágio 2
-        '''
-        ----------
-        |        |
-        |        0
-        |        |
-        |        |
-        |       
-        -
-        ''',
-        # Estágio 1
-        '''
-        ----------
-        |        |
-        |        0
-        |        
-        |        
-        |       
-        -
-        ''',
-        # Estágio 0
-        '''
-        ----------
-        |        |
-        |        
-        |       
-        |        
-        |       
-        -
-        '''
-    ]
-    return stages[chances]
-
-
 def game():
 
     limpa_tela()
@@ -103,15 +26,14 @@ def game():
     print("Adivinhe a palavra abaixo:\n")
 
     # Lista de palavras para o jogo
-    palavras = ['banana', 'abacate', 'uva', 'morango', 'laranja']
+    CAMINHO_ARQUIVO = '.\\palavras.txt'
+
+    with open(CAMINHO_ARQUIVO, 'r') as arq:
+        palavras = arq.readlines()
 
     # Escolhe randomicamente uma palavra:
     palavra = random.choice(palavras)
-
-    '''
-    # List comprehension
-    letras_descobertas = ['_' for letra in palavra]
-    '''
+    palavra = palavra.strip().upper()
 
     # Lista de letras da palavra
     lista_letras_palavras = [letra for letra in palavra]
@@ -128,12 +50,12 @@ def game():
     # Loop enquanto número de chances for maior do que zero:
     while chances > 0:
 
-        print(display_hangman(chances))
+        print(estagios.display_hangman(chances))
         print(f"Palavra: {tabuleiro}")
         print("\n")
 
-        # Tentativa
-        tentativa = input("\nDigite uma letra: ").upper()
+        # Tentativa / Digita a palavra desejada
+        tentativa = input("\nDigite uma letra: ").upper().strip()
 
         # Condicional
         if tentativa in letras_tentativas:
