@@ -8,3 +8,12 @@
 't' - Abre o arquivo no modo texto (modo padrão);
 'b' - Abre o arquivo no modo binário.
 '''
+
+CAMINHO_ARQUIVO = ".\\teste_texto.txt"
+
+# Lendo Todas as linhas de um arquivo e colocando elas dentro de uma variável de lista
+with open(CAMINHO_ARQUIVO, 'r') as arq:
+    linhas = arq.readlines()
+
+    for i in linhas:  # Esse FOR vai mostrar linha por linha na tela
+        print(i)
