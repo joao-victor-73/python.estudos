@@ -1,5 +1,3 @@
-# Projeto 1 - Desenvolvimento de Game em Python - Aula 5/5
-
 # Importando bibliotecas
 import random
 from os import system, name
