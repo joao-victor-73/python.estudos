@@ -1,7 +1,0 @@
-Surgiu uma ideia, ao observar uma situação que foi a de criar um sistema que ao adicionar o numero de cadastro ou o CPF, o usuário iria ganhar pontos para poder trocar com outras coisas. Mas para ganhar os pontos, precisava abastercer o automovel, ou comprar coisas na loja de conveniencia, ou fazer alguma outra coisa que não pensei ainda. (ps: igual ao que eu faço no posto)
-
-É um projeto simples que deu vontade de fazer, e com o tempo eu quero melhorar para criar uma interface com essa funcionalidade, criar uma ligação com o banco de dados e tudo mais.
-
-Inicialmente as informações serão guardadas dentro de um arquivo de texto simples.
-
-Ideia: 29/04/23
