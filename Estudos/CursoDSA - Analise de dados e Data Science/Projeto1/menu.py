@@ -52,7 +52,17 @@ def escolha_jogadores():
         opcao_jogadores = int(input('Digite sua escolha: '))
         if (opcao_jogadores == 1) or (opcao_jogadores == 2):
             print("OPÇÃO GUARDADA...")
-            return opcao_jogadores
+
+            if opcao_jogadores == 1:
+                nome_1 = input(">>> Qual nome de jogador deseja? ")
+
+                return opcao_jogadores, nome_1
+
+            elif opcao_jogadores == 2:
+                nome_1 = input(">>> Qual nome do 1º jogador? ")
+                nome_2 = input(">>> Qual nome do 2º jogador? ")
+
+                return opcao_jogadores, nome_1, nome_2
 
     except ValueError:
         print("O QUE FOI DIGITADO DEU UM ERRO DE VALOR. \nPOR FAVOR, TENTE NOVAMENTE")

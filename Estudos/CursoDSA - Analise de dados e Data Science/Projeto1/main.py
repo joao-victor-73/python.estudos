@@ -83,6 +83,21 @@ def game():
         print(f"\nVocê perdeu! A palavra era: {palavra}")
 
 
+def game_2():
+    # Se a escolha for com 2 jogadores
+
+    pass
+
+
 # Principal
 
+
+menu.escolha_jogadores()
+
+
 game()
+
+
+'''
+FALTA COLOCAR A OPCAO PARA DOIS JOGADORES OU UM JOGADOR
+'''
