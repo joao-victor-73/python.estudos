@@ -160,5 +160,7 @@ cython_debug/
 #.idea/
 
 Projetos_ignorados
+Curso_DSA - Analise de dados e Data Science
+
 
 .vscode
