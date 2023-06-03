@@ -35,8 +35,4 @@ def palavras_escolhida():
     palavra = random.choice(palavras)
     palavra = palavra.strip().upper()
 
-    # Lista de letras da palavra
-    lista_letras_palavras = [letra for letra in palavra]
-
-    # Cria o tabuleiro com o caracter "_" multiplicado pelo comprimento da palavra
-    tabuleiro = ["_"] * len(palavra)
+    return palavra

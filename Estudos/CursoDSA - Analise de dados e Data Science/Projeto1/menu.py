@@ -9,10 +9,6 @@ Vai ser criado um menu para a escolha:
 def escolha_categoria():
     from time import sleep
 
-    print('+', '-' * 60, '+')
-    print(f"{'Bem-vindo(a) ao >>JOGO DA FORCA<<':^65}")
-    print('+', '-' * 60, '+')
-
     print(f"""\n{'| >>> CATEGORIA DAS PALAVRAS <<<|':^65}
 \n\t[ 1 ] - FRUTAS
 \t[ 2 ] - COMIDAS

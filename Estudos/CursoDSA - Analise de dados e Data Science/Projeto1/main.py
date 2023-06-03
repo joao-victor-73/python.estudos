@@ -4,6 +4,7 @@ from os import system, name
 import estagios
 import mensagens as msg
 import menu
+import config
 
 
 def limpa_tela():
@@ -24,15 +25,9 @@ def game():
 
     msg.cabecalho()
 
-    # Lista de palavras para o jogo
-    CAMINHO_ARQUIVO = '.\\palavras.txt'
+    palavra = config.palavras_escolhida()
 
-    with open(CAMINHO_ARQUIVO, 'r') as arq:
-        palavras = arq.readlines()
-
-    # Escolhe randomicamente uma palavra:
-    palavra = random.choice(palavras)
-    palavra = palavra.strip().upper()
+    print("\n|>>> Adivinhe a palavra abaixo: <<<|\n")
 
     # Lista de letras da palavra
     lista_letras_palavras = [letra for letra in palavra]
@@ -89,6 +84,5 @@ def game():
 
 
 # Principal
-menu.escolha_categoria()
 
 game()
