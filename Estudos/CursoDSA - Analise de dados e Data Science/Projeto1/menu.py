@@ -1,7 +1,7 @@
 '''
 Vai ser criado um menu para a escolha:
     - Da dificuldade;
-    - Do tipo das palavras;
+                                        - Do tipo das palavras;
     - Um jogador, ou dois jogadores;
 '''
 
@@ -39,3 +39,25 @@ def escolha_categoria():
         sleep(2)
 
         escolha_categoria()
+
+
+def escolha_jogadores():
+
+    print('+', '-' * 60, '+')
+    print(f"{'ESCOLHA QUANTOS JOGADORES SERÃO:':^65}")
+    print('+', '-' * 60, '+')
+
+    print("""
+    [ 1 ] - Um Jogador
+    [ 2 ] - Dois Jogadores
+    """)
+
+    try:
+        opcao_jogadores = int(input('Digite sua escolha: '))
+        if (opcao_jogadores == 1) or (opcao_jogadores == 2):
+            print("OPÇÃO GUARDADA...")
+            return opcao_jogadores
+
+    except ValueError:
+        print("O QUE FOI DIGITADO DEU UM ERRO DE VALOR. \nPOR FAVOR, TENTE NOVAMENTE")
+        escolha_jogadores()
