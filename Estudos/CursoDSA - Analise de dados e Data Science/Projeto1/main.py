@@ -3,6 +3,7 @@ import random
 from os import system, name
 import estagios
 import mensagens as msg
+import menu
 
 
 def limpa_tela():
@@ -88,4 +89,6 @@ def game():
 
 
 # Principal
+menu.escolha_categoria()
+
 game()
