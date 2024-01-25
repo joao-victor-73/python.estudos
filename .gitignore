@@ -162,5 +162,6 @@ cython_debug/
 Projetos_ignorados
 Curso_DSA - Analise de dados e Data Science
 Jupyter Notebook - Exercicios
+anotacoes para ignorar
 
 .vscode
