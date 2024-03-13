@@ -2,4 +2,8 @@
     -> é dito em aula que, a estrutura interna do Flask diz que todas as páginas HTML devem
     estar dentro de um diretório chamado 'templates';
 
-    
+
+# AULA 07 - Capturando valores de variável
+    -> Para trabalhar com operações em Python, ou chamar funções dentro de HTML, basta colocar
+     chaves dentro de chaves {{}} e ali dentro digitar o comando. Por exemplo:
+        {{ 8 + 8}} <- essa é uma operação de soma 
