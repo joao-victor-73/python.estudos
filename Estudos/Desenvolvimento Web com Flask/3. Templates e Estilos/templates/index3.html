@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrando HTML ao Flask</title>
+</head>
+<body>
+    <h2 style="text-align: center;"> Manipulação e Envio de Dados </h2>
+    <hr>
+
+    <!-- Aula 07-->
+    O Sr. {{nome}} tem {{idade}} anos!
+    <p>Tem um total de {{quantDeFrutas}} itens na lista. Elas são: </p>
+    
+    <!-- Aula 08 -->
+    <ol>
+        {% for fruta in frutas %}
+            <li> {{fruta}} </li>
+        {% endfor %}
+    </ol>
+    
+    <br><br>
+
+    <!-- Aula 09 -->
+    <p> Aqui estão os valores das frutas por KG. Basta clicar no nome da fruta que aparecerá: </p>
+    <!-- c é as chaves e v é os valores do dicionário -->
+    {% for c, v in preco_frutas.items() %}
+        <details>   
+            <summary> {{c}} </summary>
+            <p> {{v}} </p>
+        </details>
+    {% endfor %}
+
+    <br> <br>
+
+    <!-- Aula 10 -->
+    <p> Adicione aqui nomes de pessoas na lista: </p>
+    <ol>
+
+        {% for nome in nomes_pessoas %}
+            <li> {{nome}} </li>
+        {% endfor %}
+
+        <form action="{{url_for('principal')}}" method="POST">
+            <label> Nomes: </label>
+            <input type="text" name="nomes">
+            <button>Adicionar</button>
+        </form>
+    </ol>
+
+    <br> <br> <br>
+
+    <!-- Aula 11 -->
+</body>
+</html>
