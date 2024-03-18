@@ -1,0 +1,15 @@
+
+    <h2 style="text-align: center;"> LISTA DE COMPRAS </h2>
+    <hr>
+
+    <ul>
+        {% for comprar in lista_compras: %}
+            <li>{{comprar}}</li>
+        {% endfor %}
+
+        <form action="{{url_for('compras')}}" method="POST">
+            <label>Fruta</label>
+            <input type="text" name="produto">
+            <button>Adicionar</button>    
+        </form>
+    </ul>

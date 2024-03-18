@@ -7,3 +7,9 @@
     -> Para trabalhar com operações em Python, ou chamar funções dentro de HTML, basta colocar
      chaves dentro de chaves {{}} e ali dentro digitar o comando. Por exemplo:
         {{ 8 + 8}} <- essa é uma operação de soma 
+
+# AULA 12 - Estendendo páginas HTML (Trabalha com reutilização e herança em html)
+    -> Criando um arquivo base HTML deixa mais fácil o trabalho do desenvolvedor, pois com isso,
+    não é necessário modificar o corpo do site em todas as páginas do HTML;
+    -> Com apenas um arquivo <principal>, ele sai modificando o corpo do site nas outras rotas/páginas;
+    
