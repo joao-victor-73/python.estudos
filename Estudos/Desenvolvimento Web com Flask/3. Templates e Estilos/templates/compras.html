@@ -1,15 +1,25 @@
+{% extends 'base.html' %}
 
+{% block conteudo %}
     <h2 style="text-align: center;"> LISTA DE COMPRAS </h2>
     <hr>
-
-    <ul>
-        {% for comprar in lista_compras: %}
-            <li>{{comprar}}</li>
-        {% endfor %}
-
-        <form action="{{url_for('compras')}}" method="POST">
-            <label>Fruta</label>
-            <input type="text" name="produto">
-            <button>Adicionar</button>    
-        </form>
-    </ul>
+    <div class="container">
+    
+        <ul class="list-group list-group-numbered">
+            {% for comprar in lista_compras: %}
+                <li class="list-group-item">{{comprar}}</li>
+            {% endfor %}
+    
+            <br>
+    
+            <form action="{{url_for('compras')}}" method="POST">
+                <div class="form-group">
+                    <label for="exampleFruta">Fruta</label>
+                    <input class="form-control" id="exampleFruta" type="text" name="produto">
+                </div>
+                <button class="btn btn-success">Adicionar</button>    
+            </form>
+        </ul>
+    
+    </div>
+{% endblock conteudo %}

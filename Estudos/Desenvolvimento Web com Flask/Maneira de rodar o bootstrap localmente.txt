@@ -1,0 +1,35 @@
+- > Usando um Servidor Web Local: Configure um servidor web local em sua máquina e sirva os arquivos Bootstrap a partir dele. 
+
+-> Existem várias opções para servidores web locais, como Apache, Nginx ou 
+    o servidor embutido do Python (python -m http.server).
+
+-> Por exemplo, você pode usar o servidor web embutido do Python para servir os arquivos Bootstrap.
+    Basta navegar até o diretório onde os arquivos Bootstrap estão localizados 
+    em seu terminal e executar o seguinte comando: < python -m http.server >
+
+-> Após digitar o código, faça o seguinte:
+    Siga estas etapas para acessar os arquivos do Bootstrap:
+
+        1. Abra um navegador da web (como Chrome, Firefox, etc.).
+        2. Na barra de endereço do navegador, digite http://localhost:8000/ e pressione Enter.
+        3. Você verá uma lista de arquivos e pastas no diretório onde você executou o comando python -m http.server.
+        4. Navegue até a pasta onde estão os arquivos do Bootstrap, geralmente algo como bootstrap5/css/.
+        5. Clique no arquivo CSS do Bootstrap que deseja usar, como bootstrap.min.css.
+        6. Você deve ver o conteúdo do arquivo CSS do Bootstrap exibido no navegador.
+        7. Para usar esse arquivo CSS em seu projeto, copie o URL do navegador 
+            (que deve ser algo como http://localhost:8000/bootstrap5/css/bootstrap.min.css) 
+            e cole-o no atributo href da tag <link> em seu arquivo HTML.
+
+
+        Exemplo:
+            <link rel="stylesheet" href="http://localhost:8000/bootstrap5/css/bootstrap.min.css">
+
+
+-> Agora, quando você recarregar sua página HTML, ela deve carregar o arquivo CSS do Bootstrap 
+    corretamente a partir do servidor web local que você configurou usando o Python. 
+    Certifique-se de que o servidor web local esteja em execução enquanto você estiver trabalhando em seu projeto.
+
+
+
+
+
