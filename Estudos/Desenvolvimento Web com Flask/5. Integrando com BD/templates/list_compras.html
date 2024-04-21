@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+    <h2 style="text-align: center;"> FÓRMULARIO PARA COMPRAS </h2>
+    <hr>
+
+
+    <table class="table">
+    
+        <thead class="thead-dark">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">PRODUTO</th>
+              <th scope="col">PREÇO (R$)</th>
+              <th scope="col">QUANDO</th>
+              <th scope="col">ONDE</th>
+            </tr>
+        </thead>
+    
+        {% for produto in lista_produtos %}
+                <tbody>
+                    <tr>
+                        <th scope="row">{{produto.id}}</th>
+                        <td>{{produto.nomeProduto}}</td>
+                        <td>{{produto.precoProduto}}</td>
+                        <td>{{produto.dataCompra}}</td>
+                        <td>{{produto.ondeCompra}}</td>
+                    </tr>
+                </tbody>
+    
+        {% endfor %}
+    </table>
+
+    <br> <br> <br>
+
+    <form>
+        <div class="mb-3">
+            <label for="nomeProdutoExample" class="form-label">Nome do produto:</label>
+            <input type="text" class="form-control" id="nomeProdutoExample" name="nome_produto">
+        </div>
+
+        <div class="mb-3">
+            <label for="precoExample" class="form-label">Preço do produto:</label>
+            <input type="text" class="form-control" id="precoExample" name="preco_produto">
+        </div>    
+
+        <div class="mb-3">
+            <label for="quandoExample" class="form-label">Quando fará as compras?</label>
+            <input type="date" name="data_compras" class="form-control" id="quandoExample">
+        </div>
+
+        <div class="mb-3">
+            <label for="ondeExample" class="form-label"> Onde fará as compras?</label>
+            <input class="form-control" list="mercadosDisponiveis" id="ondeExample" name="onde_comprar">
+            <datalist id="mercadosDisponiveis">
+                <option value="Mercadio do Braz">
+                <option value="Supermercado Nova aventura">
+                <option value="Vendinha do seu Brio">
+                <option value="Hipermercado Geração nova">
+            </datalist>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </form>
+
+{% endblock conteudo %}

@@ -8,15 +8,27 @@
         {% for comprar in lista_compras: %}
             <li class="list-group-item">{{comprar}}</li>
         {% endfor %}
-
         <br>
 
-        <form action="{{url_for('compras')}}" method="POST">
-            <div class="form-group">
-                <label for="exampleFruta">Fruta</label>
-                <input class="form-control" id="exampleFruta" type="text" name="produto">
-            </div> <br>
-            <button class="btn btn-success">Adicionar</button>    
-        </form>
+        <div class="col-md3">
+            <form action="{{url_for('compras')}}" method="POST">
+                <div class="form-group">
+                    <label for="exampleFruta">Fruta</label>
+                    <input class="form-control" id="exampleFruta" type="text" name="produto">
+                </div>
+                
+                <div class="form-group">
+                    <label for="examplePreco">Preço</label>
+                    <input class="form-control" id="exampleFruta" type="text" name="preco">
+                </div>
+                
+                <br>
+                <button class="btn btn-success">Adicionar</button>    
+            </form>
+        </div>
     </ul>
+
+    <br>
+    <hr>
+
 {% endblock conteudo %}
