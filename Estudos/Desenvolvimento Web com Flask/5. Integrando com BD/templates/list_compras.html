@@ -17,23 +17,24 @@
             </tr>
         </thead>
     
-        {% for produto in lista_produtos %}
-                <tbody>
-                    <tr>
-                        <th scope="row">{{produto.id}}</th>
-                        <td>{{produto.nomeProduto}}</td>
-                        <td>{{produto.precoProduto}}</td>
-                        <td>{{produto.dataCompra}}</td>
-                        <td>{{produto.ondeCompra}}</td>
-                    </tr>
-                </tbody>
-    
-        {% endfor %}
+        <tbody>
+            {% for produto in lista_produtos %}
+            
+                <tr>
+                    <th scope="row">{{produto.id}}</th>
+                    <td>{{produto.nomeProduto}}</td>
+                    <td>{{produto.precoProduto}}</td>
+                    <td>{{produto.dataCompra}}</td>
+                    <td>{{produto.ondeCompra}}</td>
+                </tr>
+            
+            {% endfor %}
+        </tbody>
     </table>
 
     <br> <br> <br>
 
-    <form>
+    <form action="/produtos" method="POST">
         <div class="mb-3">
             <label for="nomeProdutoExample" class="form-label">Nome do produto:</label>
             <input type="text" class="form-control" id="nomeProdutoExample" name="nome_produto">
@@ -61,6 +62,6 @@
         </div>
         
         <button type="submit" class="btn btn-primary">Enviar</button>
-      </form>
+    </form>
 
 {% endblock conteudo %}

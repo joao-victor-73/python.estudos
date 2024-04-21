@@ -4,11 +4,10 @@ from flask import Flask, render_template, request
 registros = []
 lista_compras = []
 lista_preco = []
+lista_produtos = []
 
 
 app = Flask(__name__)
-
-lista_produtos = []
 
 
 class Produtos:
@@ -46,7 +45,7 @@ def produtos():
         preco_p = request.form.get("preco_produto")
         data_p = request.form.get("data_compras")
         onde_p = request.form.get("onde_comprar")
-        id_p = len(produtos) + 1
+        id_p = len(lista_produtos) + 1
 
         if nome_p and preco_p and data_p and onde_p:
             novo_produto = Produtos(id_p, nome_p, preco_p, data_p, onde_p)
