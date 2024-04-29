@@ -1,0 +1,31 @@
+Calculadora Simples: Crie uma calculadora simples que permita ao usuário escolher entre operações de soma, 
+subtração, multiplicação e divisão. Cada operação deve ser implementada como uma função separada.
+
+
+Verificador de Número Primo: Escreva uma função que verifique se um número dado é primo ou não. Um número 
+primo é aquele que é divisível apenas por 1 e por ele mesmo.
+
+
+Conversor de Temperatura: Escreva duas funções, uma para converter Celsius para Fahrenheit e outra para 
+converter Fahrenheit para Celsius.
+
+
+Contador de Vogais e Consoantes: Escreva uma função que aceite uma string como entrada e retorne o número 
+de vogais e consoantes na string.
+
+
+Fatorial: Escreva uma função para calcular o fatorial de um número. O fatorial de um número inteiro é o 
+produto de todos os números inteiros positivos menores ou iguais a esse número.
+
+
+Validador de Senha: Escreva uma função que verifique se uma senha fornecida pelo usuário é forte o suficiente. 
+Uma senha forte deve ter pelo menos 8 caracteres, conter pelo menos uma letra maiúscula, uma letra minúscula, 
+um número e um caractere especial.
+
+
+Gerador de Números Primos: Escreva uma função que gere uma lista de números primos dentro de um intervalo 
+especificado.
+
+
+Ordenação de Lista: Escreva uma função que ordene uma lista de números em ordem crescente ou decrescente, 
+permitindo ao usuário escolher a ordem desejada.
