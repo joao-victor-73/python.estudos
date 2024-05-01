@@ -28,24 +28,41 @@ def ler_dados_da_planilha():
     sheet = workbook.active
     dados = []
 
-    cabecalho = []
+    # cabecalho = []
 
-    for row in sheet.iter_rows(values_only=True):
-        print(f"Linha: {row}")
+    # Obter o cabeçalho de cada coluna
+    cabecalho = [cell.value for cell in next(
+        sheet.iter_rows(min_row=3, max_row=3, values_only=True))]
 
+    # Itera sobre as linhas da planilha, pulando a linha do cabeçalho;
+    for row in sheet.iter_rows(min_row=4, values_only=True):
+
+        # Cria um dicionário com os dados da linha
+        row_dicionario = {dict(zip(cabecalho, row))}
+        """
+         a função zip() vai ser útil para combinar os cabeçalhos das colunas (cabecalho) 
+         com os dados da linha atual (row). Isso cria pares chave-valor.
+        """
+
+        dados.append(row_dicionario)
+
+        # print(f"Linha: {row}")
+
+        """        
         if row[0] == 'PLANILHA DE JOGOS':
             cabecalho.append(row[0])
-            print(f"{row[0]} adicionado com sucesso!")
+            # print(f"{row[0]} adicionado com sucesso!")
 
         elif row[0] == 'Nº':
             cabecalho.append(row[0:7])
-            print(f"{row[0:7]} adicionado com sucesso!")
+            # print(f"{row[0:7]} adicionado com sucesso!")
 
         # Verifica se há células vazias na linha
         if None != row:
             dados.append(row)
+        """
 
-    print(f"LISTA CABECALHO: {cabecalho}")
+    # print(f"LISTA CABECALHO: {cabecalho}")
 
     """
     for row in sheet.iter_rows(values_only=True):
