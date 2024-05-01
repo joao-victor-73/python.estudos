@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planilha Excel</title>
+</head>
+<body>
+    <h1>Dados da Planilha</h1>
+    <table border="1">
+        <h2>{{cabecalho[0]}}</h2>
+        <thead>
+                <tr>
+                    <th>{{ cabecalho[1][1] }}</th>
+                    <th>{{ cabecalho[1][2] }}</th>
+                    <th>{{ cabecalho[1][3] }}</th>
+                    <th>{{ cabecalho[1][4] }}</th>
+                    <th>{{ cabecalho[1][5] }}</th>
+
+                </tr>
+
+        </thead>
+        <tbody>
+            {% for row in dados %}
+            <tr>
+                
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
