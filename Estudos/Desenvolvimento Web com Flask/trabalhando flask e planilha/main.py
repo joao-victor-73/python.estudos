@@ -31,20 +31,20 @@ def ler_dados_da_planilha():
     # cabecalho = []
 
     # Obter o cabeçalho de cada coluna
-    cabecalho = [cell.value for cell in next(
-        sheet.iter_rows(min_row=3, max_row=3, values_only=True))]
+    cabecalho = [cell.value for cell in next(sheet.iter_rows(min_row=3, max_row=3, values_only=True))]
 
     # Itera sobre as linhas da planilha, pulando a linha do cabeçalho;
     for row in sheet.iter_rows(min_row=4, values_only=True):
-
+        
         # Cria um dicionário com os dados da linha
-        row_dicionario = {dict(zip(cabecalho, row))}
+        row_dicionario = dict(zip(cabecalho, row))
         """
          a função zip() vai ser útil para combinar os cabeçalhos das colunas (cabecalho) 
          com os dados da linha atual (row). Isso cria pares chave-valor.
         """
 
         dados.append(row_dicionario)
+
 
         # print(f"Linha: {row}")
 
