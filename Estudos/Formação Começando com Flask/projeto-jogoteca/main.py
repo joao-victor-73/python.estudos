@@ -19,6 +19,18 @@ jogo3 = Jogo("Devil May Cry", "Rogue Like", "Ação")
 lista = [jogo1, jogo2, jogo3]
 
 
+class Usuario:
+    def __init__(self, id, nome, senha):
+        self.id = id
+        self.nome = nome
+        self.senha = senha
+
+
+user1 = Usuario('luan', 'Luan Marques', '1234')
+user2 = Usuario('vitor', 'Vitor Lima', '4321')
+usuarios = {user1.id: user1, user2.id: user2}
+
+
 @app.route('/')
 def index():
     return render_template('lista.html', titulo='Jogos', lista_jogos=lista)
@@ -54,12 +66,19 @@ def login():
 
 @app.route('/autenticar', methods=['POST', ])
 def autenticar():
-    if 'mestra' == request.form['senha']:
-        session['usuario_logado'] = request.form['usuario']
-        flash(f'{request.form['usuario']} logou com sucesso!')
+    if request.form['usuario'] in usuarios:
 
-        proxima_pagina_apos_login = request.form['proxima_pagina']
-        return redirect(proxima_pagina_apos_login)
+        user = usuarios[request.form['usuario']]
+
+        if user.senha == request.form['senha']:
+
+            session['usuario_logado'] = user.id
+            flash(f'{user.nome} logou com sucesso!')
+
+            proxima_pagina_apos_login = request.form['proxima_pagina']
+            
+            return redirect(proxima_pagina_apos_login)
+
     else:
         flash('Não foi possível efetuar o login!')
         return redirect(url_for('login'))
