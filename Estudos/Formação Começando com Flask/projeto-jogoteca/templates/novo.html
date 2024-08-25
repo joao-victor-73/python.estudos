@@ -1,10 +1,6 @@
+{% extends 'base.html'%}
 
-
-<body>
-    <div class="container">
-        <h1>{{ titulo }}</h1>
-    </div>
-
+{% block conteudo %}
     <form action="/criar" method='POST'>
         <fieldset>
             <div clas"form-group">
@@ -25,4 +21,4 @@
             <button type="submit" class="btn btn-primary btn-salvar"> Salvar </button>
         </fieldset>
     </form>
-</body>
+{% endblock %}
