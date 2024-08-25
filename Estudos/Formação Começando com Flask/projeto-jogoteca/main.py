@@ -42,5 +42,18 @@ def criar_jogo():
     return redirect('/')
 
 
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+
+@app.route('/autenticar', methods=['POST', ])
+def autenticar():
+    if 'mestra' == request.form['senha']:
+        return redirect('/')
+    else:
+        return redirect('/login')
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
