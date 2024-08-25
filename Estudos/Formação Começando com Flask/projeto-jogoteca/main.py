@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session, flash
 
 
 app = Flask(__name__)
+app.secret_key = 'caelum'
+# é uma chave secreta para o session, pode ser qualquer informação dentro da string
 
 
 class Jogo:
@@ -24,6 +26,8 @@ def inicio():
 
 @app.route('/novo')
 def novo_jogo():
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        return redirect('/login')
     return render_template('novo.html', titulo='Novo Jogo')
 
 
@@ -50,9 +54,19 @@ def login():
 @app.route('/autenticar', methods=['POST', ])
 def autenticar():
     if 'mestra' == request.form['senha']:
+        session['usuario_logado'] = request.form['usuario']
+        flash(f'{request.form['usuario']} logou com sucesso!')
         return redirect('/')
     else:
+        flash('Não foi possível efetuar o login!')
         return redirect('/login')
+
+
+@app.route('/logout')
+def logout():
+    session['usuario_logado'] = None
+    flash('Nenhum usuário logado!')
+    return redirect('/')
 
 
 if __name__ == '__main__':
