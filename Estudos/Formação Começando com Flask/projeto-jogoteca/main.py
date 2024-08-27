@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, session, flash, url_for
+from flask_mysqldb import MySQL
 
 
 app = Flask(__name__)
@@ -76,7 +77,7 @@ def autenticar():
             flash(f'{user.nome} logou com sucesso!')
 
             proxima_pagina_apos_login = request.form['proxima_pagina']
-            
+
             return redirect(proxima_pagina_apos_login)
 
     else:
