@@ -1,0 +1,8 @@
+1. Observando e testando as duas bibliotecas/modulos, PyMySQL e MySQLdb, as duas são bem parecidas.
+    O que foi decidido é que usarei a PyMySQL, o principal motivo é que ela é uma biblioteca pura 
+    em Python, o que significa que não depende de extensões C para funcionar. Isso facilita a 
+    instalação em diferentes sistemas operacionais e ambientes, como servidores compartilhados ou 
+    plataformas que não permitem a compilação de código C.
+
+
+2.

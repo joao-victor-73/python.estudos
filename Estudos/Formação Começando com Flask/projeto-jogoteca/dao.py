@@ -1,4 +1,4 @@
-from .models import Jogo, Usuario
+from main import Jogo, Usuario
 
 SQL_DELETA_JOGO = "DELETE FROM jogo WHERE id = %s"
 SQL_JOGO_POR_ID = "SELECT id, nome, console FROM jogo WHERE id = %s"
