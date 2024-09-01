@@ -100,6 +100,16 @@ def atualizar_jogo():
     return redirect(url_for('index'))
 
 
+@app.route('/deletar/<int:id>')
+def deletar_jogo(id):
+    jogo_dao.deletar(id)
+
+    # Mensagem de DELETE bem sucedido
+    flash('O JOGO FOI REMOVIDO COM SUCESSO!')
+
+    return redirect(url_for('index'))
+
+
 @app.route('/login')
 def login():
     proxima = request.args.get('proxima_pagina')

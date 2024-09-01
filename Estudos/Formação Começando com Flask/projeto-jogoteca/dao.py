@@ -41,7 +41,7 @@ class JogoDao:
 
         return Jogo(dict['nome'], dict['categoria'], dict['console'], id=dict['id'])
 
-    def deletar(self, __id):
+    def deletar(self, id):
         self.__db.cursor().execute(SQL_DELETA_JOGO, (id, ))
         self.__db.commit()
 
