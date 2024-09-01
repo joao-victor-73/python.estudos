@@ -36,9 +36,9 @@ class JogoDao:
         cursor = self.__db.cursor()
         cursor.execute(SQL_JOGO_POR_ID, (id,))
         tupla = cursor.fetchone()
-        return Jogo(tupla[1], tupla[2], tupla[3], id=tupla[0])
+        return Jogo(tupla[1], tupla[2], tupla[3], __id=tupla[0])
 
-    def deletar(self, id):
+    def deletar(self, __id):
         self.__db.cursor().execute(SQL_DELETA_JOGO, (id, ))
         self.__db.commit()
 
@@ -57,7 +57,7 @@ class UsuarioDao:
 
 def traduz_jogos(jogos):
     def cria_jogo_com_tupla(tupla):
-        return Jogo(tupla[1], tupla[2], tupla[3], id=tupla[0])
+        return Jogo(tupla['nome'], tupla['categoria'], tupla['console'], id=tupla['id'])
     return list(map(cria_jogo_com_tupla, jogos))
 
 

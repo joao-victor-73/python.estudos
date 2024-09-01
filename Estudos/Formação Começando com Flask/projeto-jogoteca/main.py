@@ -45,11 +45,6 @@ db = get_db_connection()
 jogo_dao = JogoDao(db)
 
 
-jogo1 = Jogo("Mario Bros 3", "Plataforma", "SNES")
-jogo2 = Jogo("Contra 4", "Ação", "PS2")
-jogo3 = Jogo("Devil May Cry", "Rogue Like", "Ação")
-lista = [jogo1, jogo2, jogo3]
-
 user1 = Usuario('luan', 'Luan Marques', '1234')
 user2 = Usuario('vitor', 'Vitor Lima', '4321')
 usuarios = {user1.id: user1, user2.id: user2}
@@ -57,6 +52,7 @@ usuarios = {user1.id: user1, user2.id: user2}
 
 @app.route('/')
 def index():
+    lista = jogo_dao.listar()
     return render_template('lista.html', titulo='Jogos', lista_jogos=lista)
 
 
