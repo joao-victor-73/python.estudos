@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, session, flash, url_for
 # from flask_mysqldb import MySQL
 from models import Jogo, Usuario
-from dao import JogoDao
+from dao import JogoDao, UsuarioDao
 import pymysql
 
 
@@ -43,11 +43,7 @@ def get_db_connection():
 db = get_db_connection()
 
 jogo_dao = JogoDao(db)
-
-
-user1 = Usuario('luan', 'Luan Marques', '1234')
-user2 = Usuario('vitor', 'Vitor Lima', '4321')
-usuarios = {user1.id: user1, user2.id: user2}
+usuario_dao = UsuarioDao(db)
 
 
 @app.route('/')
@@ -86,18 +82,19 @@ def login():
 
 @app.route('/autenticar', methods=['POST', ])
 def autenticar():
-    if request.form['usuario'] in usuarios:
+    login_user = request.form.get('usuario', '')
+    senha_user = request.form.get('senha', '')
 
-        user = usuarios[request.form['usuario']]
+    user = usuario_dao.buscar_por_id(login_user)
+    # Isso é para retornar o usuário que foi digitado no forms de login
 
-        if user.senha == request.form['senha']:
+    if user and user.senha_user == senha_user:
+        session['usuario_logado'] = user.id
+        flash(f'{user.nome} logou com sucesso!')
 
-            session['usuario_logado'] = user.id
-            flash(f'{user.nome} logou com sucesso!')
+        proxima_pagina_apos_login = request.form.get('proxima_pagina', url_for('index'))
 
-            proxima_pagina_apos_login = request.form['proxima_pagina']
-
-            return redirect(proxima_pagina_apos_login)
+        return redirect(proxima_pagina_apos_login)
 
     else:
         flash('Não foi possível efetuar o login!')

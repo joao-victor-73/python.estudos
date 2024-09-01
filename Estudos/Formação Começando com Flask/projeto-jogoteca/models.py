@@ -8,7 +8,8 @@ class Jogo:
 
 
 class Usuario:
-    def __init__(self, id, nome, senha):
+    def __init__(self, id, nome, login_user, senha_user):
         self.id = id
         self.nome = nome
-        self.senha = senha
+        self.login_user = login_user
+        self.senha_user = senha_user

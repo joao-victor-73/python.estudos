@@ -2,7 +2,7 @@ from models import Jogo, Usuario
 
 SQL_DELETA_JOGO = "DELETE FROM jogos WHERE id = %s"
 SQL_JOGO_POR_ID = "SELECT id, nome, console FROM jogos WHERE id = %s"
-SQL_USUARIO_POR_ID = "SELECT id, nome, senha FROM usuarios WHERE id = %s"
+SQL_USUARIO_POR_ID = "SELECT id, nome, login_user, senha_user FROM usuarios WHERE login_user = %s"
 SQL_ATUALIZA_JOGO = "UPDATE jogos SET nome=%s, categoria=%s, console=%s WHERE id = %s"
 SQL_BUSCA_JOGOS = "SELECT id, nome, categoria, console FROM jogos"
 SQL_CRIA_JOGO = "INSERT INTO jogos(nome, categoria, console) VALUES (%s, %s, %s)"
@@ -62,4 +62,4 @@ def traduz_jogos(jogos):
 
 
 def traduz_usuario(tupla):
-    return Usuario(tupla[0], tupla[1], tupla[2])
+    return Usuario(tupla['id'], tupla['nome'], tupla['login_user'], tupla['senha_user'])
