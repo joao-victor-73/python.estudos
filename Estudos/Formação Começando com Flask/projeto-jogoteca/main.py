@@ -1,31 +1,54 @@
 from flask import Flask, render_template, request, redirect, session, flash, url_for
-from flask_mysqldb import MySQL
+# from flask_mysqldb import MySQL
+from models import Jogo, Usuario
+from dao import JogoDao
+import pymysql
 
 
 app = Flask(__name__)
 app.secret_key = 'caelum'
 # é uma chave secreta para o session, pode ser qualquer informação dentro da string
 
+# Configurações do banco de dados
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'darc147'
+app.config['MYSQL_DB'] = 'jogoteca'
+app.config['MYSQL_PORT'] = 3306
 
-class Jogo:
-    def __init__(self, nome, categoria, console):
-        self.nome = nome
-        self.categoria = categoria
-        self.console = console
+
+# Configuração da conexão com PyMySQL
+def get_db_connection():
+    connection = pymysql.connect(
+        host=app.config['MYSQL_HOST'],
+        user=app.config['MYSQL_USER'],
+        password=app.config['MYSQL_PASSWORD'],
+        database=app.config['MYSQL_DB'],
+        port=app.config['MYSQL_PORT'],
+        cursorclass=pymysql.cursors.DictCursor
+    )
+
+    """
+    A função get_db_connection() encapsula a criação da conexão 
+    para facilitar o uso em diferentes partes do seu aplicativo
+
+    Usamos `pymysql.cursors.DictCursor` para que os resultados da 
+    consulta sejam retornados como dicionários, o que é conveniente 
+    para acessar os resultados pelos nomes das colunas.
+    """
+
+    return connection
+
+
+db = get_db_connection()
+
+jogo_dao = JogoDao(db)
 
 
 jogo1 = Jogo("Mario Bros 3", "Plataforma", "SNES")
 jogo2 = Jogo("Contra 4", "Ação", "PS2")
 jogo3 = Jogo("Devil May Cry", "Rogue Like", "Ação")
 lista = [jogo1, jogo2, jogo3]
-
-
-class Usuario:
-    def __init__(self, id, nome, senha):
-        self.id = id
-        self.nome = nome
-        self.senha = senha
-
 
 user1 = Usuario('luan', 'Luan Marques', '1234')
 user2 = Usuario('vitor', 'Vitor Lima', '4321')
@@ -54,7 +77,7 @@ def criar_jogo():
     jogo = Jogo(nome_jogo, categoria_jogo, console_jogo)
 
     # Adicionando as informações da classe Jogo na lista
-    lista.append(jogo)
+    jogo_dao.salvar(jogo)
 
     return redirect(url_for('index'))
 

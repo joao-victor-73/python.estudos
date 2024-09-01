@@ -1,56 +1,54 @@
-from main import Jogo, Usuario
+from models import Jogo, Usuario
 
-SQL_DELETA_JOGO = "DELETE FROM jogo WHERE id = %s"
-SQL_JOGO_POR_ID = "SELECT id, nome, console FROM jogo WHERE id = %s"
-SQL_USUARIO_POR_ID = "SELECT id, nome, senha FROM usuario WHERE id = %s"
-SQL_ATUALIZA_JOGO = "UPDATE jogo SET nome=%s, categoria=%s, console=%s WHERE id = %s"
-SQL_BUSCA_JOGOS = "SELECT id, nome, categoria, console FROM jogo"
-SQL_CRIA_JOGO = "INSERT INTO jogo(nome, categoria, console) VALUES (%s, %s, %s)"
+SQL_DELETA_JOGO = "DELETE FROM jogos WHERE id = %s"
+SQL_JOGO_POR_ID = "SELECT id, nome, console FROM jogos WHERE id = %s"
+SQL_USUARIO_POR_ID = "SELECT id, nome, senha FROM usuarios WHERE id = %s"
+SQL_ATUALIZA_JOGO = "UPDATE jogos SET nome=%s, categoria=%s, console=%s WHERE id = %s"
+SQL_BUSCA_JOGOS = "SELECT id, nome, categoria, console FROM jogos"
+SQL_CRIA_JOGO = "INSERT INTO jogos(nome, categoria, console) VALUES (%s, %s, %s)"
 
 
 class JogoDao:
     def __init__(self, db):
         self.__db = db
 
-
     def salvar(self, jogo):
-        cursor = self.__db.connection.cursor()
+        cursor = self.__db.cursor()
 
         if (jogo.id):
-            cursor.execute(SQL_ATUALIZA_JOGO, (jogo.nome. jogo.categoria, jogo.console. jogo.id))
+            cursor.execute(SQL_ATUALIZA_JOGO,
+                           (jogo.nome. jogo.categoria, jogo.console, jogo.id))
         else:
-            cursor.execute(SQL_CRIA_JOGO, (jogo.nome, jogo.categoria, jogo.console))
+            cursor.execute(SQL_CRIA_JOGO, (jogo.nome,
+                           jogo.categoria, jogo.console))
             jogo.id = cursor.lastrowid
-        self.__db.connection.commit()
+
+        self.__db.commit()
         return jogo
-    
 
     def listar(self):
-        cursor = self.__db.connection.cursor()
+        cursor = self.__db.cursor()
         cursor.execute(SQL_BUSCA_JOGOS)
         jogos = traduz_jogos(cursor.fetchall())
         return jogos
-    
 
     def buscar_por_id(self, id):
-        cursor = self.__db.connection.cursor()
-        cursor.execute(SQL_JOGO_POR_ID, (id))
+        cursor = self.__db.cursor()
+        cursor.execute(SQL_JOGO_POR_ID, (id,))
         tupla = cursor.fetchone()
         return Jogo(tupla[1], tupla[2], tupla[3], id=tupla[0])
-    
 
     def deletar(self, id):
-        self.__db.connection.cursor().execute(SQL_DELETA_JOGO, (id, ))
-        self.__db.connection.commit()
+        self.__db.cursor().execute(SQL_DELETA_JOGO, (id, ))
+        self.__db.commit()
 
 
 class UsuarioDao:
     def __init__(self, db):
         self.__db = db
 
-
     def buscar_por_id(self, id):
-        cursor = self.__db.connection.cursor()
+        cursor = self.__db.cursor()
         cursor.execute(SQL_USUARIO_POR_ID, (id, ))
         dados = cursor.fetchone()
         usuario = traduz_usuario(dados) if dados else None
