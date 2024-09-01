@@ -88,11 +88,13 @@ def atualizar_jogo():
     nome_jogo = request.form.get('nome', False)
     categoria_jogo = request.form.get('categoria', False)
     console_jogo = request.form.get('console', False)
+    id_jogo = request.form.get('id', False)
 
     # Instânciando a classe Jogo com as informações do formulário do HTML
-    jogo = Jogo(nome_jogo, categoria_jogo, console_jogo)
+    jogo = Jogo(nome_jogo, categoria_jogo, console_jogo, id_jogo)
 
-    # Adicionando as informações da classe Jogo na lista
+    # Nesse caso aqui, a função salvar vai servir para ATUALIZAR
+    # as informações da classe Jogo na lista
     jogo_dao.salvar(jogo)
 
     return redirect(url_for('index'))

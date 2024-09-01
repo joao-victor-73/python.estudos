@@ -17,7 +17,7 @@ class JogoDao:
 
         if (jogo.id):
             cursor.execute(SQL_ATUALIZA_JOGO,
-                           (jogo.nome. jogo.categoria, jogo.console, jogo.id))
+                           (jogo.nome, jogo.categoria, jogo.console, jogo.id))
         else:
             cursor.execute(SQL_CRIA_JOGO, (jogo.nome,
                            jogo.categoria, jogo.console))
