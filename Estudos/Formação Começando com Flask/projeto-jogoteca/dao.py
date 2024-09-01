@@ -36,7 +36,7 @@ class JogoDao:
         cursor = self.__db.cursor()
         cursor.execute(SQL_JOGO_POR_ID, (id,))
         tupla = cursor.fetchone()
-        return Jogo(tupla[1], tupla[2], tupla[3], __id=tupla[0])
+        return Jogo(tupla[1], tupla[2], tupla[3], id=tupla[0])
 
     def deletar(self, __id):
         self.__db.cursor().execute(SQL_DELETA_JOGO, (id, ))
@@ -49,7 +49,7 @@ class UsuarioDao:
 
     def buscar_por_id(self, id):
         cursor = self.__db.cursor()
-        cursor.execute(SQL_USUARIO_POR_ID, (id, ))
+        cursor.execute(SQL_USUARIO_POR_ID, (id,))
         dados = cursor.fetchone()
         usuario = traduz_usuario(dados) if dados else None
         return usuario

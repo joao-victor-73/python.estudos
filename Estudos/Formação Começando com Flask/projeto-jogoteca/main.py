@@ -85,16 +85,21 @@ def autenticar():
     login_user = request.form.get('usuario', '')
     senha_user = request.form.get('senha', '')
 
+    print(f"Login: {login_user}, Senha: {senha_user}")
+
     user = usuario_dao.buscar_por_id(login_user)
     # Isso é para retornar o usuário que foi digitado no forms de login
+    print(f"Usuário encontrado: {user}")
 
-    if user and user.senha_user == senha_user:
-        session['usuario_logado'] = user.id
-        flash(f'{user.nome} logou com sucesso!')
+    if user:
+        if user.senha_user == senha_user:
+            session['usuario_logado'] = user.id
+            flash(f'{user.nome} logou com sucesso!')
 
-        proxima_pagina_apos_login = request.form.get('proxima_pagina', url_for('index'))
+            proxima_pagina_apos_login = request.form.get(
+                'proxima_pagina', url_for('index'))
 
-        return redirect(proxima_pagina_apos_login)
+            return redirect(proxima_pagina_apos_login)
 
     else:
         flash('Não foi possível efetuar o login!')
