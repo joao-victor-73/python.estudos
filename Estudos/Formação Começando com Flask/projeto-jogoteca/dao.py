@@ -1,7 +1,7 @@
 from models import Jogo, Usuario
 
 SQL_DELETA_JOGO = "DELETE FROM jogos WHERE id = %s"
-SQL_JOGO_POR_ID = "SELECT id, nome, console FROM jogos WHERE id = %s"
+SQL_JOGO_POR_ID = "SELECT id, nome, categoria, console FROM jogos WHERE id = %s"
 SQL_USUARIO_POR_ID = "SELECT id, nome, login_user, senha_user FROM usuarios WHERE login_user = %s"
 SQL_ATUALIZA_JOGO = "UPDATE jogos SET nome=%s, categoria=%s, console=%s WHERE id = %s"
 SQL_BUSCA_JOGOS = "SELECT id, nome, categoria, console FROM jogos"
@@ -36,7 +36,7 @@ class JogoDao:
         cursor = self.__db.cursor()
         cursor.execute(SQL_JOGO_POR_ID, (id,))
         tupla = cursor.fetchone()
-        return Jogo(tupla[1], tupla[2], tupla[3], id=tupla[0])
+        return Jogo(tupla['nome'], tupla['categoria'], tupla['console'], id=tupla['id'])
 
     def deletar(self, __id):
         self.__db.cursor().execute(SQL_DELETA_JOGO, (id, ))

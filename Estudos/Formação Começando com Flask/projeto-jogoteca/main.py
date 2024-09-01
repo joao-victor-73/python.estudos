@@ -74,6 +74,20 @@ def criar_jogo():
     return redirect(url_for('index'))
 
 
+# A rota receberá um parâmetro através dos operadores angulares que são esses sinais: <>
+@app.route('/editar/<int:id>')  # O id aqui no parâmetro, vai ser o do jogo
+def editar_jogo(id):  # E a função também tem que receber o mesmo parâmetro
+    if 'usuario_logado' not in session or session['usuario_logado'] is None:
+        return redirect(url_for('login', proxima_pagina=url_for('editar_jogo')))
+    jogo = jogo_dao.buscar_por_id(id)
+    return render_template('edit.html', titulo='Editar Jogo', jogo=jogo)
+
+
+@app.route('/atualizar', methods=['POST', ])
+def atualizar_jogo():
+    pass
+
+
 @app.route('/login')
 def login():
     proxima = request.args.get('proxima_pagina')
