@@ -35,8 +35,11 @@ class JogoDao:
     def buscar_por_id(self, id):
         cursor = self.__db.cursor()
         cursor.execute(SQL_JOGO_POR_ID, (id,))
-        tupla = cursor.fetchone()
-        return Jogo(tupla['nome'], tupla['categoria'], tupla['console'], id=tupla['id'])
+        dict = cursor.fetchone()
+        # Esse metodo retorna os registros em dicionários e não tuplas, ja na outra API (MySQLdb),
+        # ele retorna os registros como uma tupla
+
+        return Jogo(dict['nome'], dict['categoria'], dict['console'], id=dict['id'])
 
     def deletar(self, __id):
         self.__db.cursor().execute(SQL_DELETA_JOGO, (id, ))
@@ -56,10 +59,10 @@ class UsuarioDao:
 
 
 def traduz_jogos(jogos):
-    def cria_jogo_com_tupla(tupla):
-        return Jogo(tupla['nome'], tupla['categoria'], tupla['console'], id=tupla['id'])
-    return list(map(cria_jogo_com_tupla, jogos))
+    def cria_jogo_com_dict(dict):
+        return Jogo(dict['nome'], dict['categoria'], dict['console'], id=dict['id'])
+    return list(map(cria_jogo_com_dict, jogos))
 
 
-def traduz_usuario(tupla):
-    return Usuario(tupla['id'], tupla['nome'], tupla['login_user'], tupla['senha_user'])
+def traduz_usuario(dict):
+    return Usuario(dict['id'], dict['nome'], dict['login_user'], dict['senha_user'])

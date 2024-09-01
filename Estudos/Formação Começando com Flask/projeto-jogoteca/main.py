@@ -85,7 +85,17 @@ def editar_jogo(id):  # E a função também tem que receber o mesmo parâmetro
 
 @app.route('/atualizar', methods=['POST', ])
 def atualizar_jogo():
-    pass
+    nome_jogo = request.form.get('nome', False)
+    categoria_jogo = request.form.get('categoria', False)
+    console_jogo = request.form.get('console', False)
+
+    # Instânciando a classe Jogo com as informações do formulário do HTML
+    jogo = Jogo(nome_jogo, categoria_jogo, console_jogo)
+
+    # Adicionando as informações da classe Jogo na lista
+    jogo_dao.salvar(jogo)
+
+    return redirect(url_for('index'))
 
 
 @app.route('/login')
