@@ -13,3 +13,6 @@ class Usuario:
         self.nome = nome
         self.login_user = login_user
         self.senha_user = senha_user
+
+    # OBS: no meus estudos, o professor criou o id como login. Já eu aqui, criei o id como sendo P.K
+    # Alterarei para que o login_user seja UNIQUE (01/09/24 - 00:12)

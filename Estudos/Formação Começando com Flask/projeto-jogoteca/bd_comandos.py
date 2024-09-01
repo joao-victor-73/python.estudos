@@ -39,7 +39,7 @@ cursor = db.cursor()
 SQL_CRIA_TABELA_JOGOS = """ CREATE TABLE IF NOT EXISTS jogos(
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
-    login_user VARCHAR(100) NOT NULL,
+    login_user VARCHAR(100) UNIQUE NOT NULL,
     senha_user VARCHAR(100) NOT NULL
 );"""
 
