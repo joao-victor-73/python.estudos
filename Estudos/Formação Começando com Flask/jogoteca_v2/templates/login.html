@@ -19,10 +19,66 @@
             {% endif %}
         {% endwith %}
 
+
+        <!-- EXPLICAÇÃO PARA O CÓDIGO ACIMA
+        -> 'get_flashed_messages()' é uma função do Flask que retorna todas as mensagens 
+                                  flash armazenadas na sessão do usuário e as remove da sessão;
+
+        -> Aqui, 'messages' é uma variável temporária que recebe o resultado de get_flashed_messages() 
+                para que possamos iterar sobre as mensagens posteriormente.
+        
+        -> {% if messages %}:
+                - Verifica se há mensagens na variável messages.
+                - Se não houver mensagens flash, o bloco dentro do if não será executado.
+        
+        -> <ul id="messages" class="list-unstyled">:
+                - Inicia uma lista não ordenada (<ul>) com o id "messages" e a classe "list-unstyled".
+                - A classe list-unstyled é usada para remover os estilos padrão de uma lista (<ul>), 
+                    garantindo que as mensagens flash sejam exibidas sem estilos de lista padrão.
+        
+        -> {% for message in messages %}:
+                - Itera sobre cada mensagem na lista messages.
+        
+        -> <li class="alert alert-success">{{ message }}</li>:
+                - Para cada mensagem, cria um item de lista (<li>).
+                - Usa a classe alert alert-success do Bootstrap (ou similar) 
+                    para estilizar a mensagem como um alerta de sucesso.
+                - Exibe o conteúdo da mensagem usando {{ message }}, que é 
+                    substituído pelo texto real da mensagem flash.
+        
+        -> {% endfor %}:
+                - Encerra o loop for que itera sobre as mensagens.
+        
+        -> </ul>:
+                - Fecha a lista não ordenada (<ul>).
+        
+        -> {% endif %}:
+                - Finaliza a condição if iniciada anteriormente para verificar se há mensagens a serem exibidas.
+        
+        -> {% endwith %}:
+                - Encerra o bloco with iniciado no início do código.
+                - No contexto do Flask, isso garante que qualquer 
+                    manipulação de messages seja limitada ao bloco with, 
+                    garantindo que get_flashed_messages() seja chamado 
+                    uma vez e o resultado seja utilizado apenas dentro deste bloco.
+
+        -->
+
+
         <h1>Faça seu login</h1>
-        <form method="POST" action="/autenticar">
-            <p><label>Nome de usuário:</label> <input class="form-control" type="text" name="usuario" required></p>
-            <p><label>Senha:</label> <input class="form-control" type="password" name="senha" required></p>
+        <form method="POST" action="{{ url_for('autenticar') }}">
+            <input type="hidden" name="proxima" values="{{ proxima }}">
+
+            <p>
+                <label>Nome de usuário:</label> 
+                <input class="form-control" type="text" name="usuario" required>
+            </p>
+            
+            <p>
+                <label>Senha:</label> 
+                <input class="form-control" type="password" name="senha" required>
+            </p>
+            
             <p><button class="btn btn-primary" type="submit">Entrar</button></p>
         </form>
     </div>
