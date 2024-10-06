@@ -69,6 +69,18 @@ def atualizar():
     return redirect(url_for('index'))
 
 
+@app.route('/deletar/<int:id_jogo>')
+def deletar(id_jogo):
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        return redirect(url_for('login'))
+
+    Jogos.query.filter_by(id=id_jogo).delete()
+    db.session.commit()
+    flash("Jogo Deletado com Sucesso!")
+
+    return redirect(url_for('index'))
+
+
 @app.route('/login')
 def login():
     proxima = request.args.get('proxima')
