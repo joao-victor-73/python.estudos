@@ -46,18 +46,27 @@ def criar():
     return redirect(url_for('index'))
 
 
-@app.route('/editar/<int:id>')
-def editar(id):
+@app.route('/editar/<int:id_jogo>')
+def editar(id_jogo):
     if 'usuario_logado' not in session or session['usuario_logado'] == None:
-        return redirect(url_for('login', proxima=url_for('editar')))
+        return redirect(url_for('login', proxima=url_for('editar', id=id_jogo)))
     # fazendo uma query para trazer as informações do banco de dados
-    jogo = Jogos.query.filter_by(id=id).first()
+    jogo = Jogos.query.filter_by(id=id_jogo).first()
     return render_template('editar.html', titulo='Editando Jogo', jogo=jogo)
 
 
 @app.route('/atualizar', methods=['POST',])
 def atualizar():
-    pass
+    atualizando_jogo = Jogos.query.filter_by(
+        id=request.form['id_jogo']).first()
+    atualizando_jogo.nome = request.form['nome']
+    atualizando_jogo.categoria = request.form['categoria']
+    atualizando_jogo.console = request.form['console']
+
+    db.session.add(atualizando_jogo)
+    db.session.commit()
+
+    return redirect(url_for('index'))
 
 
 @app.route('/login')
