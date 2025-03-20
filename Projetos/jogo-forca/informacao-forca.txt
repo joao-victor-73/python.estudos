@@ -1,6 +1,0 @@
-Criarei um jogo bem simples de forca (estilo o tradicional)
-
-Na primeira versão vai ser utilizado funções, fatiamento e loopings.
-Posteriormente vou tentar acrescentar ao Pygame;
-E numa terceira versão, possívelmente, eu crie uma versão com interface (utilizando o 
-TKinter ou outro framework).
