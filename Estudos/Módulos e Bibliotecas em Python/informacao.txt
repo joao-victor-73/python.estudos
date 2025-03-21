@@ -1,0 +1,5 @@
+Os arquivos, anotações e códigos nessa pasta foram feitos com o auxilio de uma
+seções de alguns cursos que eu tenho.
+    - Desenvolvimento Web com Flask - Seção 3;
+    - Curso Python3 (Otavio Miranda) - Seção 6 e Seção 8 (Essa ensinando sobre bibliotecas SQL)
+    - Curso Python para Todos 
