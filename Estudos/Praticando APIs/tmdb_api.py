@@ -8,7 +8,7 @@ from flask import Flask, jsonify
 
 app = Flask(__name__)
 
-API_KEY = 'c147135dcc6631cf191922bc5217dd97'  # "SUA_CHAVE_AQUI"
+API_KEY = "SUA_CHAVE_AQUI"
 BASE_URL = "https://api.themoviedb.org/3"
 
 
