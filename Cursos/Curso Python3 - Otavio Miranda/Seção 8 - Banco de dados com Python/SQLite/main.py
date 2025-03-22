@@ -54,6 +54,29 @@ row_one = cursor.fetchone()
 print(row_one)
 
 
+# Deletando no SQLite
+# CUIDADO ao fazer um DELETE sem WHERE
+
+# DELETE correto:
+cursor.execute(
+    'DELETE FROM customers WHERE id = 1'
+)
+connection.commit()
+
+
+# Atualizando registros na tabela
+cursor.execute(
+    'UPDATE customers '
+    'SET name = "Paulo" '
+    'WHERE id = 1'
+)
+
+
 # Fechar a conexão
 cursor.close()
 connection.close()
+
+
+if __name__ == "__main__":
+    cursor.close()
+    connection.close()
