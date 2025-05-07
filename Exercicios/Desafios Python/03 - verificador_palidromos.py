@@ -17,3 +17,19 @@ Regras:
             -> Retorne True ou False.
 
 """
+
+
+palavra_digitada = str(input("Digite uma palavra: ").lower().strip())
+
+def eh_palindromo(palavra):
+
+    if palavra ==  palavra[::-1]:
+        print(f"A palavra digitada foi {palavra} e ela é um palindromo")
+        return True
+
+    else:
+        print(f"A palavra digitada foi {palavra} e ela não é um palindromo")
+        return False
+    
+
+eh_palindromo(palavra_digitada)
