@@ -13,3 +13,19 @@ Regras:
 
             -> Use dict para armazenar as frequências.
 """
+
+palavra = "banana"
+
+def frequencia_letras(palavra):
+    contagem_letras = {} # declarar a variável dentro da função para que ela seja independente e reutilizável.
+    
+    for l in palavra.lower().strip():
+        if 'a' <= l <= 'z':
+            if l in contagem_letras:
+                contagem_letras[l] += 1
+            else:
+                contagem_letras[l] = 1
+    
+    return contagem_letras
+
+print(frequencia_letras(palavra))
