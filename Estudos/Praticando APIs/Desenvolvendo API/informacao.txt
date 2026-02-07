@@ -1,4 +1,0 @@
-Os arquivos, anotações e códigos nessa pasta foram feitos com o auxilio de uma
-seção de um curso chamado "Desenvolvimento Web com Flask".
-A seção é a 13, 14 e 15 do referido curso. Nessa seção é ensinado a desenvolver
-uma API.
